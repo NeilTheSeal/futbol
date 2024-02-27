@@ -1,0 +1,6 @@
+require './lib/game_stats'
+require './lib/game_team'
+require './lib/game'
+require './lib/stat_tracker'
+require './lib/team'
+require 'simplecov'

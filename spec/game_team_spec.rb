@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-RSpec.describe Game do
+RSpec.describe GameTeam do
   before(:each) do
-    @game = Game.new
+    @game_team = GameTeam.new
   end
 
   describe '#initialize' do
     it 'exists' do
-      expect(@game).to be_a(Game)
+      expect(@game_team).to be_a(GameTeam)
     end
   end
 end
