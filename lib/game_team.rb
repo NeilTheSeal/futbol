@@ -1,3 +1,3 @@
-class Team 
+class GameTeam
   def initialize; end
 end
