@@ -18,6 +18,20 @@
 - What classes do we need?
   - StatTracker
     - This is the "main" class that all functionality is tied to
+  - Game
+    - This includes both instance methods and class methods
+      - Instance methods: things like .won?
+      - Class methods: for creating multiple Game instances, and calculating statistics about games
+  - Team
+    - Also includes instance and class methods
+  - GameTeam
+    - Includes instance and class methods
+- How to break this out into pieces that individuals or pairs can work on?
+  - Give one class responsibility to each person
+  - Can do driver/navigator at the beginning of each class, and hand off tasks thereafter
+  - Async: write code snippets or pseudocode in the Miro and hand that off to another person for implementation
+- How do we know when something is "good enough"?
+  - If it passes the spec harness tests and our unit/integration tests
 
 ## Link to "Define the Relationship"
 - [DTR](https://docs.google.com/document/d/1lpanxrDJjw6f3paF7eL6Kqx28IkDTppuKmc_9heUfBc/edit)
