@@ -44,5 +44,5 @@
   - [LinkedIn](https://www.linkedin.com/in/jared-hobson-639817241/)
   - [GitHub](https://github.com/JaredMHobson)
 - Rodrigo Chavez
-  - [LinkedIn]()
+  - [LinkedIn](https://www.linkedin.com/in/rodrigo-chavez-1b93a52b1/)
   - [GitHub](https://github.com/RodrigoACG/)
