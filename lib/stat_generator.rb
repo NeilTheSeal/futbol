@@ -73,4 +73,16 @@ class StatGenerator
     end
     wins_by_coach.max_by { |_coach, wins| wins }[0].to_s
   end
+
+  def worst_coach(season)
+    game_teams_list = game_team_by_season[season.to_sym]
+    wins_by_coach = {}
+    coaches_by_season[season.to_sym].each do |coach|
+      wins_by_coach[coach.to_sym] = 0
+    end
+    game_teams_list.each do |game_team|
+      wins_by_coach[game_team.coach.to_sym] += 1 if game_team.result == "WIN"
+    end
+    wins_by_coach.min_by { |_coach, wins| wins }[0].to_s
+  end
 end
