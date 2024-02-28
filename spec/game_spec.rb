@@ -20,4 +20,10 @@ RSpec.describe Game do
       expect(@games).to all be_a(Game)
     end
   end
+
+  describe '#total_score' do
+    it 'gets the total score of the game' do
+      expect(@game1.total_score).to eq(5)
+    end
+  end
 end
