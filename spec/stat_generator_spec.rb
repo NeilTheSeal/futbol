@@ -1,5 +1,6 @@
 require "spec_helper"
 
+# rubocop:disable Metrics/BlockLength
 RSpec.describe StatGenerator do
   before(:all) do
     @games = Game.create_games("./data/games.csv")
@@ -28,5 +29,14 @@ RSpec.describe StatGenerator do
       seasons = %w[20122013 20162017 20142015 20152016 20132014 20172018]
       expect(@stat_generator.seasons).to eq(seasons)
     end
+
+    it "can list game ids by season" do
+      season_id_list = @stat_generator.id_by_season
+      expect(season_id_list.keys.empty?).to eq(false)
+      season_id_list.each_value do |id_array|
+        expect(id_array.empty?).to eq(false)
+      end
+    end
   end
 end
+# rubocop:enable Metrics/BlockLength
