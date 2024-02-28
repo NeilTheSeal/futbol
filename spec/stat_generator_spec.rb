@@ -82,4 +82,12 @@ RSpec.describe StatGenerator do
       expect(best_team).to eq("Reign FC")
     end
   end
+
+  describe "#worst_offense" do
+    it "can return the name of the team with the lowest average number of goals scored per game across all seasons" do
+      worst_team = @stat_generator.worst_offense
+
+      expect(worst_team).to eq("Utah Royals FC")
+    end
+  end
 end
