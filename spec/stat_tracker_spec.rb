@@ -18,5 +18,9 @@ RSpec.describe StatTracker do
     it "exists" do
       expect(@stat_tracker).to be_a(StatTracker)
     end
+
+    it "has attributes" do
+      expect(@stat_tracker.game_stats).to be_a(GameStats)
+    end
   end
 end
