@@ -33,8 +33,13 @@ class StatGenerator
   end
 
   def best_offense
-    array = []
     @teams.max_by do |team|
+      average_goals_per_game_by_team(team.team_id)
+    end.team_name
+  end
+
+  def worst_offense
+    @teams.min_by do |team|
       average_goals_per_game_by_team(team.team_id)
     end.team_name
   end
