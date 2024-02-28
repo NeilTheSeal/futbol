@@ -75,20 +75,20 @@ RSpec.describe StatGenerator do
       expect(hash.values).to all eq(0)
     end
 
-    it "can use best_worst_coach method for winning" do
-      expect(@stat_generator.best_worst_coach(
+    it "can use coach_evaluation method for winning" do
+      expect(@stat_generator.coach_evaluation(
                "20132014", "winner"
              )).to eq "Claude Julien"
-      expect(@stat_generator.best_worst_coach(
+      expect(@stat_generator.coach_evaluation(
                "20142015", "winner"
              )).to eq "Alain Vigneault"
     end
 
-    it "can use best_worst_coach method for losing" do
-      expect(@stat_generator.best_worst_coach(
+    it "can use coach_evaluation method for losing" do
+      expect(@stat_generator.coach_evaluation(
                "20132014", "loser"
              )).to eq "Peter Laviolette"
-      expect(@stat_generator.best_worst_coach(
+      expect(@stat_generator.coach_evaluation(
                "20142015", "loser"
              )).to eq("Craig MacTavish").or(eq("Ted Nolan"))
     end

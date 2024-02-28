@@ -71,7 +71,7 @@ class StatGenerator
     coach_list
   end
 
-  def best_worst_coach(season, winner_or_loser)
+  def coach_evaluation(season, winner_or_loser)
     game_teams_list = game_team_by_season[season.to_sym]
     wins_by_coach = generate_integer_hash(coaches_by_season[season.to_sym])
     game_teams_list.each do |game_team|
@@ -85,11 +85,11 @@ class StatGenerator
   end
 
   def winningest_coach(season)
-    best_worst_coach(season, "winner")
+    coach_evaluation(season, "winner")
   end
 
   def worst_coach(season)
-    best_worst_coach(season, "loser")
+    coach_evaluation(season, "loser")
   end
 
   def count_of_teams
