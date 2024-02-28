@@ -13,5 +13,11 @@ class StatGenerator
     end.total_score
   end
 
+  def lowest_total_score 
+    @games.min_by do |game| 
+      game.total_score
+    end.total_score
+  end
+
 
 end
