@@ -4,3 +4,4 @@ Gemfile.lock
 .standard.yml
 sorbet
 spec/stat_tracker_harness_spec.rb
+coverage

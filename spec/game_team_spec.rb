@@ -13,6 +13,14 @@ RSpec.describe GameTeam do
     it "exists" do
       expect(@game_team1).to be_a(GameTeam)
     end
+
+    it "has a team_id" do
+      expect(@game_team1.team_id).to eq(3)
+    end
+
+    it "has goals" do
+      expect(@game_team1.goals).to eq(2)
+    end
   end
 
   describe "::create_game_teams" do
