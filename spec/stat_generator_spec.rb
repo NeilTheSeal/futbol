@@ -29,11 +29,13 @@ RSpec.describe StatGenerator do
 
       expect(count).to be_a(Integer)
 
-      details = Hash.new(nil)
+      details = Hash.new(0)
       @teams << Team.new(details)
       new_count = @stat_generator.count_of_teams
 
       expect(new_count).to eq(count += 1)
+
+      @teams.pop
     end
   end
 
@@ -58,6 +60,26 @@ RSpec.describe StatGenerator do
       team2_goals = @stat_generator.total_goals_by_team(2)
 
       expect(team2_goals).to eq(1053)
+    end
+  end
+
+  describe "#average_goals_per_game_by_team" do
+    it "can find the average goals made per game by a team all seasons" do
+      team1_average = @stat_generator.average_goals_per_game_by_team(1)
+
+      expect(team1_average).to eq(1.94)
+
+      team2_average = @stat_generator.average_goals_per_game_by_team(2)
+
+      expect(team2_average).to eq(2.18)
+    end
+  end
+
+  describe "#best_offense" do
+    it "can return the name of the team with the highest average number of goals scored per game across all seasons" do
+      best_team = @stat_generator.best_offense
+
+      expect(best_team).to eq("Reign FC")
     end
   end
 end
