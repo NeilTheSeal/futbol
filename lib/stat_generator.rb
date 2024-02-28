@@ -26,4 +26,16 @@ class StatGenerator
       end
     end
   end
+
+  def average_goals_per_game_by_team(team_id)
+    (total_goals_by_team(team_id).to_f /
+    total_games_played_by_team(team_id)).round(2)
+  end
+
+  def best_offense
+    array = []
+    @teams.max_by do |team|
+      average_goals_per_game_by_team(team.team_id)
+    end.team_name
+  end
 end
