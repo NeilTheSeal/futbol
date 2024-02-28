@@ -1,4 +1,6 @@
 class GameTeam
+  attr_reader :game_id
+
   def initialize(details)
     @game_id = details[:game_id]
   end

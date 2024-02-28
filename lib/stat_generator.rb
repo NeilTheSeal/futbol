@@ -25,4 +25,17 @@ class StatGenerator
     end
     season_id_list
   end
+
+  def game_team_by_season
+    season_game_list = {}
+    seasons.each { |season| season_game_list[season.to_sym] = [] }
+    @game_teams.each do |game_team|
+      @games.each do |game|
+        next unless game_team.game_id == game.game_id
+
+        season_game_list[game.season.to_sym].push(game_team)
+      end
+    end
+    season_game_list
+  end
 end
