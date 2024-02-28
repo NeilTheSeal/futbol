@@ -10,4 +10,10 @@ class StatGenerator
   def count_of_teams
     @teams.count
   end
+
+  def total_games_played_by_team(team_id)
+    @game_teams.count do |game_team|
+      game_team.team_id == team_id
+    end
+  end
 end
