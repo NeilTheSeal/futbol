@@ -13,6 +13,14 @@ RSpec.describe Team do
     it "exists" do
       expect(@team1).to be_a(Team)
     end
+
+    it "has a team_id" do
+      expect(@team1.team_id).to eq(1)
+    end
+
+    it "has a name" do
+      expect(@team1.team_name).to eq("Atlanta United")
+    end
   end
 
   describe "::create_teams" do

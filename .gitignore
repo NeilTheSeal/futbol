@@ -3,3 +3,4 @@ Gemfile.lock
 .rubocop.yml
 .standard.yml
 sorbet
+coverage
