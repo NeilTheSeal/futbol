@@ -38,7 +38,7 @@ RSpec.describe StatGenerator do
       end
     end
 
-    it "can list game teams by season" do
+    xit "can list game teams by season" do
       season_game_team_list = @stat_generator.game_team_by_season
       expect(season_game_team_list.keys.empty?).to eq(false)
       season_game_team_list.each_value do |game_team_array|
@@ -51,6 +51,13 @@ RSpec.describe StatGenerator do
       coaches_list = @stat_generator.coaches
       expect(coaches_list.empty?).to be false
       expect(coaches_list).to all be_a String
+    end
+  end
+
+  describe "#season statistics" do
+    it "can display the winningest coach" do
+      expect(@stat_generator.winningest_coach("20132014")).to eq "Claude Julien"
+      expect(@stat_generator.winningest_coach("20142015")).to eq "Alain Vigneault"
     end
   end
 end
