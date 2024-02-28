@@ -67,6 +67,31 @@ RSpec.describe StatGenerator do
       expect(hash.keys).to all be_a(Symbol)
       expect(hash.values).to all be_a(Array)
     end
+
+    it "can create hashes with zero values" do
+      keys = %w[A B C]
+      hash = @stat_generator.generate_integer_hash(keys)
+      expect(hash.keys).to all be_a(Symbol)
+      expect(hash.values).to all eq(0)
+    end
+
+    it "can use best_worst_coach method for winning" do
+      expect(@stat_generator.best_worst_coach(
+               "20132014", "winner"
+             )).to eq "Claude Julien"
+      expect(@stat_generator.best_worst_coach(
+               "20142015", "winner"
+             )).to eq "Alain Vigneault"
+    end
+
+    it "can use best_worst_coach method for losing" do
+      expect(@stat_generator.best_worst_coach(
+               "20132014", "loser"
+             )).to eq "Peter Laviolette"
+      expect(@stat_generator.best_worst_coach(
+               "20142015", "loser"
+             )).to eq("Craig MacTavish").or(eq("Ted Nolan"))
+    end
   end
 
   describe "#season statistics" do
