@@ -1,8 +1,9 @@
 class GameTeam
-  attr_reader :game_id
+  attr_reader :game_id, :coach
 
   def initialize(details)
     @game_id = details[:game_id]
+    @coach = details[:head_coach]
   end
 
   def self.create_game_teams(csv_file_path)

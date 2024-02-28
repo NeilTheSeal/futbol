@@ -38,4 +38,19 @@ class StatGenerator
     end
     season_game_list
   end
+
+  def coaches
+    coach_list = []
+    @game_teams.each do |game_team|
+      unless coach_list.include?(game_team.coach)
+        coach_list.push(game_team.coach)
+      end
+    end
+    coach_list
+  end
+
+  def winningest_coach(season)
+    game_teams_list = game_team_by_season[season.to_sym]
+    wins_by_coach = {}
+  end
 end
