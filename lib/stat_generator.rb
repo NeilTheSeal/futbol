@@ -6,4 +6,8 @@ class StatGenerator
     @teams = teams
     @game_teams = game_teams
   end
+
+  def count_of_teams
+    @teams.count
+  end
 end
