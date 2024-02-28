@@ -14,4 +14,15 @@ class StatGenerator
     end
     seasons
   end
+
+  def id_by_season
+    season_id_list = {}
+    seasons.each { |season| season_id_list[season.to_sym] = [] }
+    @games.each do |game|
+      unless season_id_list[game.season.to_sym].include?(game.game_id)
+        season_id_list[game.season.to_sym].push(game.game_id)
+      end
+    end
+    season_id_list
+  end
 end
