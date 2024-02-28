@@ -36,4 +36,16 @@ RSpec.describe StatGenerator do
       expect(new_count).to eq(count += 1)
     end
   end
+
+  describe "#total_games_played_by_team" do
+    it "can find the total games played by a team" do
+      team1_games = @stat_generator.total_games_played_by_team(1)
+
+      expect(team1_games).to eq(463)
+
+      team2_games = @stat_generator.total_games_played_by_team(2)
+
+      expect(team2_games).to eq(482)
+    end
+  end
 end
