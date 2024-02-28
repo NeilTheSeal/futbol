@@ -22,4 +22,11 @@ RSpec.describe StatGenerator do
       expect(@stat_generator.game_teams).to eq(@game_teams)
     end
   end
+
+  describe "#helper methods" do
+    it "can list seasons" do
+      seasons = %w[20122013 20162017 20142015 20152016 20132014 20172018]
+      expect(@stat_generator.seasons).to eq(seasons)
+    end
+  end
 end
