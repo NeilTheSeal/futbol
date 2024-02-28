@@ -16,4 +16,14 @@ class StatGenerator
       game_team.team_id == team_id
     end
   end
+
+  def total_goals_by_team(team_id)
+    @game_teams.sum do |game_team|
+      if game_team.team_id == team_id
+        game_team.goals
+      else
+        0
+      end
+    end
+  end
 end
