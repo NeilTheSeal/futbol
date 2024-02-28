@@ -26,9 +26,20 @@ class StatGenerator
     season_id_list
   end
 
+  def generate_array_hash(keys)
+    hash = {}
+    keys.each { |key| hash[key.to_sym] = [] }
+    hash
+  end
+
+  def generate_integer_hash(keys)
+    hash = {}
+    keys.each { |key| hash[key.to_sym] = 0 }
+    hash
+  end
+
   def game_team_by_season
-    season_game_list = {}
-    seasons.each { |season| season_game_list[season.to_sym] = [] }
+    season_game_list = generate_array_hash(seasons)
     @game_teams.each do |game_team|
       @games.each do |game|
         next unless game_team.game_id == game.game_id
@@ -50,8 +61,7 @@ class StatGenerator
   end
 
   def coaches_by_season
-    coach_list = {}
-    seasons.each { |season| coach_list[season.to_sym] = [] }
+    coach_list = generate_array_hash(seasons)
     game_team_by_season.each do |season, game_team_list|
       game_team_list.each do |game_team|
         unless coach_list[season].include?(game_team.coach)
@@ -62,27 +72,24 @@ class StatGenerator
     coach_list
   end
 
-  def winningest_coach(season)
+  def best_worst_coach(season, winner_or_loser)
     game_teams_list = game_team_by_season[season.to_sym]
-    wins_by_coach = {}
-    coaches_by_season[season.to_sym].each do |coach|
-      wins_by_coach[coach.to_sym] = 0
-    end
+    wins_by_coach = generate_integer_hash(coaches_by_season[season.to_sym])
     game_teams_list.each do |game_team|
       wins_by_coach[game_team.coach.to_sym] += 1 if game_team.result == "WIN"
     end
-    wins_by_coach.max_by { |_coach, wins| wins }[0].to_s
+    if winner_or_loser == "winner"
+      wins_by_coach.max_by { |_coach, wins| wins }[0].to_s
+    else
+      wins_by_coach.min_by { |_coach, wins| wins }[0].to_s
+    end
+  end
+
+  def winningest_coach(season)
+    best_worst_coach(season, "winner")
   end
 
   def worst_coach(season)
-    game_teams_list = game_team_by_season[season.to_sym]
-    wins_by_coach = {}
-    coaches_by_season[season.to_sym].each do |coach|
-      wins_by_coach[coach.to_sym] = 0
-    end
-    game_teams_list.each do |game_team|
-      wins_by_coach[game_team.coach.to_sym] += 1 if game_team.result == "WIN"
-    end
-    wins_by_coach.min_by { |_coach, wins| wins }[0].to_s
+    best_worst_coach(season, "loser")
   end
 end
