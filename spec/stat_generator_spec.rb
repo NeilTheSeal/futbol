@@ -38,7 +38,7 @@ RSpec.describe StatGenerator do
   end
 
   describe "#total_games_played_by_team" do
-    it "can find the total games played by a team" do
+    it "can find the total games played by a team all seasons" do
       team1_games = @stat_generator.total_games_played_by_team(1)
 
       expect(team1_games).to eq(463)
@@ -46,6 +46,18 @@ RSpec.describe StatGenerator do
       team2_games = @stat_generator.total_games_played_by_team(2)
 
       expect(team2_games).to eq(482)
+    end
+  end
+
+  describe "#total_goals_by_team" do
+    it "can find the total goals made by a team all seasons" do
+      team1_goals = @stat_generator.total_goals_by_team(1)
+
+      expect(team1_goals).to eq(896)
+
+      team2_goals = @stat_generator.total_goals_by_team(2)
+
+      expect(team2_goals).to eq(1053)
     end
   end
 end
