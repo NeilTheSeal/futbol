@@ -52,6 +52,14 @@ RSpec.describe StatGenerator do
       expect(coaches_list.empty?).to be false
       expect(coaches_list).to all be_a String
     end
+
+    it "can list head coaches by season" do
+      coaches_list = @stat_generator.coaches_by_season
+      coaches_list.each_value do |coach_array|
+        expect(coach_array.empty?).to be false
+        expect(coach_array).to all be_a String
+      end
+    end
   end
 
   describe "#season statistics" do
