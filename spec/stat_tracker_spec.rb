@@ -20,7 +20,7 @@ RSpec.describe StatTracker do
     end
 
     it "initializes from a CSV file" do
-      expect(@stat_tracker.game_stats).to be_a(GameStats)
+      expect(@stat_tracker.stat_generator).to be_a(StatGenerator)
       expect(@stat_tracker.games).to all be_a(Game)
       expect(@stat_tracker.teams).to all be_a(Team)
       expect(@stat_tracker.game_teams).to all be_a(GameTeam)
