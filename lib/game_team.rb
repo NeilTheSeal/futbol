@@ -1,10 +1,12 @@
 class GameTeam
-  attr_reader :game_id, :coach, :result
+  attr_reader :team_id, :game_id, :coach, :result, :goals
 
   def initialize(details)
+    @team_id = details[:team_id]
     @game_id = details[:game_id]
     @coach = details[:head_coach]
     @result = details[:result]
+    @goals = details[:goals].to_i
   end
 
   def self.create_game_teams(csv_file_path)

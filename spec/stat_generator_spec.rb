@@ -124,11 +124,11 @@ RSpec.describe StatGenerator do
 
   describe "#total_games_played_by_team" do
     it "can find the total games played by a team all seasons" do
-      team1_games = @stat_generator.total_games_played_by_team(1)
+      team1_games = @stat_generator.total_games_played_by_team("1")
 
       expect(team1_games).to eq(463)
 
-      team2_games = @stat_generator.total_games_played_by_team(2)
+      team2_games = @stat_generator.total_games_played_by_team("2")
 
       expect(team2_games).to eq(482)
     end
@@ -136,11 +136,11 @@ RSpec.describe StatGenerator do
 
   describe "#total_goals_by_team" do
     it "can find the total goals made by a team all seasons" do
-      team1_goals = @stat_generator.total_goals_by_team(1)
+      team1_goals = @stat_generator.total_goals_by_team("1")
 
       expect(team1_goals).to eq(896)
 
-      team2_goals = @stat_generator.total_goals_by_team(2)
+      team2_goals = @stat_generator.total_goals_by_team("2")
 
       expect(team2_goals).to eq(1053)
     end
@@ -148,11 +148,11 @@ RSpec.describe StatGenerator do
 
   describe "#average_goals_per_game_by_team" do
     it "can find the average goals made per game by a team all seasons" do
-      team1_average = @stat_generator.average_goals_per_game_by_team(1)
+      team1_average = @stat_generator.average_goals_per_game_by_team("1")
 
       expect(team1_average).to eq(1.94)
 
-      team2_average = @stat_generator.average_goals_per_game_by_team(2)
+      team2_average = @stat_generator.average_goals_per_game_by_team("2")
 
       expect(team2_average).to eq(2.18)
     end
