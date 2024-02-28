@@ -22,4 +22,18 @@ RSpec.describe StatGenerator do
       expect(@stat_generator.game_teams).to eq(@game_teams)
     end
   end
+
+  describe "#count_of_teams" do
+    it "can count the number of teams" do
+      count = @stat_generator.count_of_teams
+
+      expect(count).to be_a(Integer)
+
+      details = Hash.new(nil)
+      @teams << Team.new(details)
+      new_count = @stat_generator.count_of_teams
+
+      expect(new_count).to eq(count += 1)
+    end
+  end
 end
