@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe GameStats do
+RSpec.describe StatGenerator do
   before(:all) do
     @games = Game.create_games("./data/games.csv")
     @game_teams = GameTeam.create_game_teams("./data/game_teams.csv")
@@ -8,18 +8,18 @@ RSpec.describe GameStats do
   end
 
   before(:each) do
-    @game_stats = GameStats.new(@games, @teams, @game_teams)
+    @stat_generator = StatGenerator.new(@games, @teams, @game_teams)
   end
 
   describe "#initialize" do
     it "exists" do
-      expect(@game_stats).to be_a(GameStats)
+      expect(@stat_generator).to be_a(StatGenerator)
     end
 
     it "has attributes" do
-      expect(@game_stats.games).to eq(@games)
-      expect(@game_stats.teams).to eq(@teams)
-      expect(@game_stats.game_teams).to eq(@game_teams)
+      expect(@stat_generator.games).to eq(@games)
+      expect(@stat_generator.teams).to eq(@teams)
+      expect(@stat_generator.game_teams).to eq(@game_teams)
     end
   end
 end

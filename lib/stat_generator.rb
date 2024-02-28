@@ -1,4 +1,4 @@
-class GameStats
+class StatGenerator
   attr_reader :games, :teams, :game_teams
 
   def initialize(games, teams, game_teams)

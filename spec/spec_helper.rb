@@ -1,4 +1,4 @@
-require "./lib/game_stats"
+require "./lib/stat_generator"
 require "./lib/game_team"
 require "./lib/game"
 require "./lib/stat_tracker"
