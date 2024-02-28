@@ -46,6 +46,12 @@ RSpec.describe StatGenerator do
         expect(game_team_array).to all be_a(GameTeam)
       end
     end
+
+    it "can list every head coach" do
+      coaches_list = @stat_generator.coaches
+      expect(coaches_list.empty?).to be false
+      expect(coaches_list).to all be_a String
+    end
   end
 end
 # rubocop:enable Metrics/BlockLength
