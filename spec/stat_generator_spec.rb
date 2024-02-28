@@ -37,6 +37,15 @@ RSpec.describe StatGenerator do
         expect(id_array.empty?).to eq(false)
       end
     end
+
+    it "can list game teams by season" do
+      season_game_team_list = @stat_generator.game_team_by_season
+      expect(season_game_team_list.keys.empty?).to eq(false)
+      season_game_team_list.each_value do |game_team_array|
+        expect(game_team_array.empty?).to eq(false)
+        expect(game_team_array).to all be_a(GameTeam)
+      end
+    end
   end
 end
 # rubocop:enable Metrics/BlockLength
