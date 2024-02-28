@@ -6,4 +6,12 @@ class StatGenerator
     @teams = teams
     @game_teams = game_teams
   end
+
+  def seasons
+    seasons = []
+    @games.each do |game|
+      seasons.push(game.season) unless seasons.include?(game.season)
+    end
+    seasons
+  end
 end

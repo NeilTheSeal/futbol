@@ -1,7 +1,11 @@
 require "CSV"
 class Game
+  attr_reader :game_id,
+              :season
+
   def initialize(details)
     @game_id = details[:game_id]
+    @season = details[:season]
   end
 
   def self.create_games(csv_file_path)
