@@ -22,4 +22,12 @@ RSpec.describe StatGenerator do
       expect(@stat_generator.game_teams).to eq(@game_teams)
     end
   end
+
+  describe '#highest total score' do
+    it 'Calculates the highest total score for all games' do
+      expect(@stat_generator.highest_total_score).to eq(11)
+      # @game2 = Game.new() try to prove that 
+      expect(@stat_generator.highest_total_score).to_not eq(1)
+    end
+  end
 end
