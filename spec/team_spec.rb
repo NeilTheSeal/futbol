@@ -1,8 +1,12 @@
 require 'spec_helper'
 
 RSpec.describe Team do
+  before(:all) do
+    @teams = Team.create_teams('./data/teams.csv')
+  end
+
   before(:each) do
-    @team1 = Team.create_teams('./data/teams.csv')[0]
+    @team1 = @teams[0]
   end
 
   describe '#initialize' do
@@ -13,9 +17,7 @@ RSpec.describe Team do
 
   describe '::create_teams' do
     it 'creates Team instances from a CSV file' do
-      teams = Team.create_teams('./data/teams.csv')
-
-      expect(teams).to all be_a(Team)
+      expect(@teams).to all be_a(Team)
     end
   end
 end
