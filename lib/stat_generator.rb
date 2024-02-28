@@ -52,5 +52,12 @@ class StatGenerator
   def winningest_coach(season)
     game_teams_list = game_team_by_season[season.to_sym]
     wins_by_coach = {}
+    coaches.each { |coach| wins_by_coach[coach.to_sym] = 0 }
+    game_teams_list.each do |game_team|
+      wins_by_coach[game_team.coach.to_sym] += 1 if game_team.result == "WIN"
+    end
+    wins_by_coach.max_by do |_coach, wins|
+      wins
+    end[0].to_s
   end
 end
