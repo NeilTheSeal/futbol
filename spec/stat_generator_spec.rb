@@ -60,6 +60,13 @@ RSpec.describe StatGenerator do
         expect(coach_array).to all be_a String
       end
     end
+
+    it "can create hashes with array values" do
+      keys = %w[A B C]
+      hash = @stat_generator.generate_array_hash(keys)
+      expect(hash.keys).to all be_a(Symbol)
+      expect(hash.values).to all be_a(Array)
+    end
   end
 
   describe "#season statistics" do
