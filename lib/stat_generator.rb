@@ -6,4 +6,12 @@ class StatGenerator
     @teams = teams
     @game_teams = game_teams
   end
+
+  def highest_total_score
+    @games.max_by do |game|
+      game.total_score
+    end.total_score
+  end
+
+
 end
