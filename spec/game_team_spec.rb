@@ -15,7 +15,7 @@ RSpec.describe GameTeam do
     end
 
     it "has a team_id" do
-      expect(@game_team1.team_id).to eq(3)
+      expect(@game_team1.team_id).to eq("3")
     end
 
     it "has goals" do
