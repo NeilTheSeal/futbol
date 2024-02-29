@@ -39,6 +39,10 @@ class StatGenerator
    end
  end
 
+ def percentage_away_wins
+  (total_away_wins / count_of_games.to_f ).round(2)
+ end
+
   def count_of_teams
     @teams.count
   end
