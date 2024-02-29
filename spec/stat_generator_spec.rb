@@ -45,6 +45,7 @@ RSpec.describe StatGenerator do
       expect(@stat_generator.count_of_games).to eq(7441)
 
       expect(@stat_generator.total_home_wins).to_not eq(98)
+      expect(@stat_generator.total_home_wins).to eq(3237)
     end
   end
 
