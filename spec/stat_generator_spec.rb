@@ -173,5 +173,13 @@ RSpec.describe StatGenerator do
       expect(worst_team).to eq("Utah Royals FC")
     end
   end
+
+  describe "#highest_scoring_visitor" do
+    it "can return the name with the highest average score per game across all seasons when they are away" do
+      best_visitor = @stat_generator.highest_scoring_visitor
+
+      expect(best_visitor).to eq("FC Dallas")
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength
