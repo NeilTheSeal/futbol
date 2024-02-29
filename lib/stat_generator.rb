@@ -28,9 +28,15 @@ class StatGenerator
      game.home_goals > game.away_goals
    end
  end
-
+ 
  def percentage_home_wins
   (total_home_wins / count_of_games.to_f ).round(2)
+ end
+
+  def total_away_wins
+   @games.count do |game|
+     game.away_goals > game.home_goals
+   end
  end
 
   def count_of_teams
