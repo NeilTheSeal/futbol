@@ -135,7 +135,7 @@ RSpec.describe StatGenerator do
   end
 
   describe "#total_goals_by_team" do
-    it "can find the total goals made by a team all seasons" do
+    it "can find the total goals made by a team for all seasons" do
       team1_goals = @stat_generator.total_goals_by_team("1")
 
       expect(team1_goals).to eq(896)
@@ -143,6 +143,30 @@ RSpec.describe StatGenerator do
       team2_goals = @stat_generator.total_goals_by_team("2")
 
       expect(team2_goals).to eq(1053)
+    end
+  end
+
+  describe "#total_goals_by_team_when_away" do
+    it "can find the total goals made by a team when away for all seasons" do
+      team1_goals = @stat_generator.total_goals_by_team_when_away("1")
+
+      expect(team1_goals).to eq(440)
+
+      team2_goals = @stat_generator.total_goals_by_team_when_away("2")
+
+      expect(team2_goals).to eq(507)
+    end
+  end
+
+  describe "#total_goals_by_team_when_home" do
+    it "can find the total goals made by a team when home for all seasons" do
+      team1_goals = @stat_generator.total_goals_by_team_when_home("1")
+
+      expect(team1_goals).to eq(456)
+
+      team2_goals = @stat_generator.total_goals_by_team_when_home("2")
+
+      expect(team2_goals).to eq(546)
     end
   end
 
@@ -205,5 +229,7 @@ RSpec.describe StatGenerator do
       expect(worst_team).to eq("Utah Royals FC")
     end
   end
+
+
 end
 # rubocop:enable Metrics/BlockLength
