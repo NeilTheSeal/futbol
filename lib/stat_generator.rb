@@ -7,6 +7,53 @@ class StatGenerator
     @game_teams = game_teams
   end
 
+  def highest_total_score
+    @games.max_by do |game|
+      game.total_score
+    end.total_score
+  end
+
+  def lowest_total_score 
+    @games.min_by do |game| 
+      game.total_score
+    end.total_score
+  end
+
+  def count_of_games
+    @games.count 
+  end
+
+  def total_home_wins
+    @games.count do |game|
+     game.home_goals > game.away_goals
+   end
+  end
+ 
+  def percentage_home_wins
+    (total_home_wins / count_of_games.to_f ).round(2)
+  end
+
+  def total_away_wins
+    @games.count do |game|
+     game.away_goals > game.home_goals
+   end
+  end
+ 
+  def percentage_away_wins
+    (total_away_wins / count_of_games.to_f ).round(2)
+  end
+
+  def total_ties
+    @games.count do |game|
+     game.away_goals == game.home_goals
+    end
+  end
+  
+
+  def percentage_ties
+    (total_ties / count_of_games.to_f).round(2)
+  end 
+
   def seasons
     seasons = []
     @games.each do |game|
