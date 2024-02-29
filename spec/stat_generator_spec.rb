@@ -38,6 +38,15 @@ RSpec.describe StatGenerator do
     
   end
 
+  describe '#percent wins at home ' do
+    it 'Sees the percent won at home ' do
+      
+      expect(@stat_generator.count_of_games).to_not eq(9)
+      
+    end
+  end
+
+
   describe "#count_of_teams" do
     it "can count the number of teams" do
       count = @stat_generator.count_of_teams
