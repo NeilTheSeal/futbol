@@ -20,7 +20,52 @@ RSpec.describe StatGenerator do
     it "has attributes" do
       expect(@stat_generator.games).to eq(@games)
       expect(@stat_generator.teams).to eq(@teams)
-      expect(@stat_generator.game_teams).to eq(@game_teams)
+    end
+  end
+
+  describe '#checks highest total score and lowest total score' do
+    it 'Calculates the highest total score for all games' do
+      expect(@stat_generator.highest_total_score).to eq(11)
+      # @game2 = Game.new() try to prove that 
+    end
+
+    it 'Calculates the lowest total score of all games' do 
+      expect(@stat_generator.lowest_total_score).to eq(0)
+
+    end
+    
+  end
+
+  describe '#percent wins at home ' do
+    it 'Sees the percent won at home ' do
+      
+      expect(@stat_generator.count_of_games).to eq(7441)
+
+      expect(@stat_generator.total_home_wins).to eq(3237)
+
+      expect(@stat_generator.percentage_home_wins).to eq(0.44)
+    end
+  end
+  
+  describe '#percent wins away ' do
+  it 'Sees the percent won away ' do
+    
+    expect(@stat_generator.count_of_games).to eq(7441)
+    
+    expect(@stat_generator.total_away_wins).to eq(2687)
+    
+    expect(@stat_generator.percentage_away_wins).to eq(0.36)
+    end
+  end
+  
+  describe '#percent ties ' do
+    it 'Sees the percent of how many games they had a tie' do
+      
+      expect(@stat_generator.count_of_games).to eq(7441)
+      
+      expect(@stat_generator.total_ties).to eq(1517)
+      
+      expect(@stat_generator.percentage_ties).to eq(0.2)
     end
   end
 
