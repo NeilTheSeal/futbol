@@ -66,17 +66,18 @@ RSpec.describe StatGenerator do
     end
   end
   
-  describe '#percent wins away ' do
-  it 'Sees the percent won away ' do
-    
-    expect(@stat_generator.count_of_games).to_not eq(292)
-    expect(@stat_generator.count_of_games).to eq(7441)
-    
-    expect(@stat_generator.total_ties).to_not eq(33)
-    expect(@stat_generator.total_ties).to eq(1517)
-    
-    expect(@stat_generator.percentage_ties).to eq(0.2)
-    expect(@stat_generator.percentage_ties).to_not eq(4.04)
+  describe '#percent ties ' do
+    it 'Sees the percent of how many games they had a tie' do
+      
+      expect(@stat_generator.count_of_games).to_not eq(292)
+      expect(@stat_generator.count_of_games).to eq(7441)
+      
+      expect(@stat_generator.total_ties).to_not eq(33)
+      expect(@stat_generator.total_ties).to eq(1517)
+      
+      expect(@stat_generator.percentage_ties).to eq(0.2)
+      expect(@stat_generator.percentage_ties).to_not eq(4.04)
+    end
   end
 
 
