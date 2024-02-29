@@ -19,7 +19,11 @@ class StatGenerator
     end.total_score
   end
 
+  def count_of_games
+    @games.count 
+  end
 
+  
 
   def count_of_teams
     @teams.count
