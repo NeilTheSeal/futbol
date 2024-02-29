@@ -1,5 +1,7 @@
 require "CSV"
 class Game
+
+  attr_reader :away_goals, :home_goals
   def initialize(details)
     @game_id = details[:game_id]
     @away_goals = details[:away_goals].to_i
@@ -18,16 +20,6 @@ class Game
     end
     games_list
   end
-
-  # def highest_total_score
-  #   goals_scored = total_score
-  #   @games.each do |game|
-  #     game.max_by |home_goal| 
-  #     goals_scored << home_goal
-  #     goals_scored << away_goals
-  #   end
-  # end
-
 
   def total_score
     @away_goals + @home_goals
