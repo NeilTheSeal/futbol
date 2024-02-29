@@ -27,21 +27,21 @@ class StatGenerator
     @games.count do |game|
      game.home_goals > game.away_goals
    end
- end
+  end
  
- def percentage_home_wins
-  (total_home_wins / count_of_games.to_f ).round(2)
- end
+  def percentage_home_wins
+    (total_home_wins / count_of_games.to_f ).round(2)
+  end
 
   def total_away_wins
     @games.count do |game|
      game.away_goals > game.home_goals
    end
- end
+  end
  
- def percentage_away_wins
-  (total_away_wins / count_of_games.to_f ).round(2)
- end
+  def percentage_away_wins
+    (total_away_wins / count_of_games.to_f ).round(2)
+  end
 
   def total_ties
     @games.count do |game|
@@ -50,9 +50,9 @@ class StatGenerator
   end
   
 
- def percentage_ties
-  (total_ties / count_of_games.to_f).round(2)
- end 
+  def percentage_ties
+    (total_ties / count_of_games.to_f).round(2)
+  end 
 
   def count_of_teams
     @teams.count
