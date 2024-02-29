@@ -162,9 +162,33 @@ class StatGenerator
     end.team_name
   end
 
+  def highest_scoring_visitor
+    @teams.max_by do |team|
+      average_goals_per_game_by_team_when_away(team.team_id)
+    end.team_name
+  end
+
+  def highest_scoring_home_team
+    @teams.max_by do |team|
+      average_goals_per_game_by_team_when_home(team.team_id)
+    end.team_name
+  end
+
   def worst_offense
     @teams.min_by do |team|
       average_goals_per_game_by_team(team.team_id)
+    end.team_name
+  end
+
+  def lowest_scoring_visitor
+    @teams.min_by do |team|
+      average_goals_per_game_by_team_when_away(team.team_id)
+    end.team_name
+  end
+
+  def lowest_scoring_home_team
+    @teams.min_by do |team|
+      average_goals_per_game_by_team_when_home(team.team_id)
     end.team_name
   end
 end
