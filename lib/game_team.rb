@@ -1,9 +1,11 @@
 class GameTeam
-  attr_reader :team_id, :goals
+  attr_reader :team_id, :game_id, :coach, :result, :goals
 
   def initialize(details)
+    @team_id = details[:team_id]
     @game_id = details[:game_id]
-    @team_id = details[:team_id].to_i
+    @coach = details[:head_coach]
+    @result = details[:result]
     @goals = details[:goals].to_i
   end
 

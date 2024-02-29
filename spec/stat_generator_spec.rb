@@ -1,5 +1,6 @@
 require "spec_helper"
 
+# rubocop:disable Metrics/BlockLength
 RSpec.describe StatGenerator do
   before(:all) do
     @games = Game.create_games("./data/games.csv")
@@ -83,6 +84,88 @@ RSpec.describe StatGenerator do
 
 
 
+  describe "#helper methods" do
+    it "can list seasons" do
+      seasons = %w[20122013 20162017 20142015 20152016 20132014 20172018]
+      expect(@stat_generator.seasons).to eq(seasons)
+    end
+
+    it "can list game ids by season" do
+      season_id_list = @stat_generator.id_by_season
+      expect(season_id_list.keys.empty?).to eq(false)
+      season_id_list.each_value do |id_array|
+        expect(id_array.empty?).to eq(false)
+      end
+    end
+
+    it "can list game teams by season" do
+      season_game_team_list = @stat_generator.game_team_by_season
+      expect(season_game_team_list.keys.empty?).to eq(false)
+      season_game_team_list.each_value do |game_team_array|
+        expect(game_team_array.empty?).to eq(false)
+        expect(game_team_array).to all be_a(GameTeam)
+      end
+    end
+
+    it "can list every head coach" do
+      coaches_list = @stat_generator.coaches
+      expect(coaches_list.empty?).to be false
+      expect(coaches_list).to all be_a String
+    end
+
+    it "can list head coaches by season" do
+      coaches_list = @stat_generator.coaches_by_season
+      coaches_list.each_value do |coach_array|
+        expect(coach_array.empty?).to be false
+        expect(coach_array).to all be_a String
+      end
+    end
+
+    it "can create hashes with array values" do
+      keys = %w[A B C]
+      hash = @stat_generator.generate_array_hash(keys)
+      expect(hash.keys).to all be_a(Symbol)
+      expect(hash.values).to all be_a(Array)
+    end
+
+    it "can create hashes with zero values" do
+      keys = %w[A B C]
+      hash = @stat_generator.generate_integer_hash(keys)
+      expect(hash.keys).to all be_a(Symbol)
+      expect(hash.values).to all eq(0)
+    end
+
+    it "can use coach_evaluation method for winning" do
+      expect(@stat_generator.coach_evaluation(
+               "20132014", "winner"
+             )).to eq "Claude Julien"
+      expect(@stat_generator.coach_evaluation(
+               "20142015", "winner"
+             )).to eq "Alain Vigneault"
+    end
+
+    it "can use coach_evaluation method for losing" do
+      expect(@stat_generator.coach_evaluation(
+               "20132014", "loser"
+             )).to eq "Peter Laviolette"
+      expect(@stat_generator.coach_evaluation(
+               "20142015", "loser"
+             )).to eq("Craig MacTavish").or(eq("Ted Nolan"))
+    end
+  end
+
+  describe "#season statistics" do
+    it "can display the winningest coach" do
+      expect(@stat_generator.winningest_coach("20132014")).to eq "Claude Julien"
+      expect(@stat_generator.winningest_coach("20142015")).to eq "Alain Vigneault"
+    end
+
+    it "can display the worst coach" do
+      expect(@stat_generator.worst_coach("20132014")).to eq "Peter Laviolette"
+      expect(@stat_generator.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Ted Nolan"))
+    end
+  end
+
   describe "#count_of_teams" do
     it "can count the number of teams" do
       count = @stat_generator.count_of_teams
@@ -93,7 +176,7 @@ RSpec.describe StatGenerator do
       @teams << Team.new(details)
       new_count = @stat_generator.count_of_teams
 
-      expect(new_count).to eq(count += 1)
+      expect(new_count).to eq(count + 1)
 
       @teams.pop
     end
@@ -101,11 +184,11 @@ RSpec.describe StatGenerator do
 
   describe "#total_games_played_by_team" do
     it "can find the total games played by a team all seasons" do
-      team1_games = @stat_generator.total_games_played_by_team(1)
+      team1_games = @stat_generator.total_games_played_by_team("1")
 
       expect(team1_games).to eq(463)
 
-      team2_games = @stat_generator.total_games_played_by_team(2)
+      team2_games = @stat_generator.total_games_played_by_team("2")
 
       expect(team2_games).to eq(482)
     end
@@ -113,11 +196,11 @@ RSpec.describe StatGenerator do
 
   describe "#total_goals_by_team" do
     it "can find the total goals made by a team all seasons" do
-      team1_goals = @stat_generator.total_goals_by_team(1)
+      team1_goals = @stat_generator.total_goals_by_team("1")
 
       expect(team1_goals).to eq(896)
 
-      team2_goals = @stat_generator.total_goals_by_team(2)
+      team2_goals = @stat_generator.total_goals_by_team("2")
 
       expect(team2_goals).to eq(1053)
     end
@@ -125,11 +208,11 @@ RSpec.describe StatGenerator do
 
   describe "#average_goals_per_game_by_team" do
     it "can find the average goals made per game by a team all seasons" do
-      team1_average = @stat_generator.average_goals_per_game_by_team(1)
+      team1_average = @stat_generator.average_goals_per_game_by_team("1")
 
       expect(team1_average).to eq(1.94)
 
-      team2_average = @stat_generator.average_goals_per_game_by_team(2)
+      team2_average = @stat_generator.average_goals_per_game_by_team("2")
 
       expect(team2_average).to eq(2.18)
     end
@@ -151,3 +234,4 @@ RSpec.describe StatGenerator do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

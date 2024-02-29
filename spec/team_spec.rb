@@ -15,7 +15,7 @@ RSpec.describe Team do
     end
 
     it "has a team_id" do
-      expect(@team1.team_id).to eq(1)
+      expect(@team1.team_id).to eq("1")
     end
 
     it "has a name" do
