@@ -181,5 +181,13 @@ RSpec.describe StatGenerator do
       expect(best_visitor).to eq("FC Dallas")
     end
   end
+
+  describe "#lowest_scoring_visitor" do
+    it "can return the name of the team with the lowest average score per game across all seasons when they are a visitor" do
+      worst_visitor = @stat_generator.lowest_scoring_visitor
+
+      expect(worst_visitor).to eq("San Jose Earthquakes")
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength
