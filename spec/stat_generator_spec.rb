@@ -42,7 +42,7 @@ RSpec.describe StatGenerator do
     it 'Sees the percent won at home ' do
       
       expect(@stat_generator.count_of_games).to_not eq(9)
-      
+      expect(@stat_generator.count_of_games).to eq(7441)
     end
   end
 
