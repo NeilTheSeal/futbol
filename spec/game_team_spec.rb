@@ -21,6 +21,16 @@ RSpec.describe GameTeam do
     it "has goals" do
       expect(@game_team1.goals).to eq(2)
     end
+
+    it "can be the away team" do
+      expect(@game_team1.home_or_away).to eq("away")
+    end
+
+    it "can be the home team" do
+      @game_team2 = @game_teams[1]
+
+      expect(@game_team2.home_or_away).to eq("home")
+    end
   end
 
   describe "::create_game_teams" do
