@@ -23,7 +23,11 @@ class StatGenerator
     @games.count 
   end
 
-  
+  def total_home_wins
+   @games.count do |game|
+     game.home_goals > game.away_goals
+   end
+ end
 
   def count_of_teams
     @teams.count
