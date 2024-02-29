@@ -75,8 +75,8 @@ RSpec.describe StatGenerator do
     expect(@stat_generator.total_ties).to_not eq(33)
     expect(@stat_generator.total_ties).to eq(1517)
     
-  
-    end
+    expect(@stat_generator.percentage_ties).to eq(0.2)
+    expect(@stat_generator.percentage_ties).to_not eq(4.04)
   end
 
 
