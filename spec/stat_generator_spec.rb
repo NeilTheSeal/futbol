@@ -168,7 +168,7 @@ RSpec.describe StatGenerator do
   end
 
   describe "#total_games_played_by_team" do
-    it "can find the total games played by a team all seasons" do
+    it "can find the total games played by a team for all seasons" do
       team1_games = @stat_generator.total_games_played_by_team("1")
 
       expect(team1_games).to eq(463)
@@ -177,10 +177,30 @@ RSpec.describe StatGenerator do
 
       expect(team2_games).to eq(482)
     end
+
+    it "can find the total games played by a team when away for all seasons" do
+      team1_games = @stat_generator.total_games_played_by_team("1", "away")
+
+      expect(team1_games).to eq(232)
+
+      team2_games = @stat_generator.total_games_played_by_team("2", "away")
+
+      expect(team2_games).to eq(242)
+    end
+
+    it "can find the total games played by a team when home for all seasons" do
+      team1_games = @stat_generator.total_games_played_by_team("1", "home")
+
+      expect(team1_games).to eq(231)
+
+      team2_games = @stat_generator.total_games_played_by_team("2", "home")
+
+      expect(team2_games).to eq(240)
+    end
   end
 
   describe "#total_goals_by_team" do
-    it "can find the total goals made by a team all seasons" do
+    it "can find the total goals made by a team for all seasons" do
       team1_goals = @stat_generator.total_goals_by_team("1")
 
       expect(team1_goals).to eq(896)
@@ -189,10 +209,30 @@ RSpec.describe StatGenerator do
 
       expect(team2_goals).to eq(1053)
     end
+
+    it "can find the total goals made by a team when away for all seasons" do
+      team1_goals = @stat_generator.total_goals_by_team("1", "away")
+
+      expect(team1_goals).to eq(440)
+
+      team2_goals = @stat_generator.total_goals_by_team("2", "away")
+
+      expect(team2_goals).to eq(507)
+    end
+
+    it "can find the total goals made by a team when home for all seasons" do
+      team1_goals = @stat_generator.total_goals_by_team("1", "home")
+
+      expect(team1_goals).to eq(456)
+
+      team2_goals = @stat_generator.total_goals_by_team("2", "home")
+
+      expect(team2_goals).to eq(546)
+    end
   end
 
   describe "#average_goals_per_game_by_team" do
-    it "can find the average goals made per game by a team all seasons" do
+    it "can find the average goals made per game by a team for all seasons" do
       team1_average = @stat_generator.average_goals_per_game_by_team("1")
 
       expect(team1_average).to eq(1.94)
@@ -200,6 +240,26 @@ RSpec.describe StatGenerator do
       team2_average = @stat_generator.average_goals_per_game_by_team("2")
 
       expect(team2_average).to eq(2.18)
+    end
+
+    it "can find the average goals made per game by a team when away for all seasons" do
+      team1_average = @stat_generator.average_goals_per_game_by_team("1", "away")
+
+      expect(team1_average).to eq(1.90)
+
+      team2_average = @stat_generator.average_goals_per_game_by_team("2", "away")
+
+      expect(team2_average).to eq(2.10)
+    end
+
+    it "can find the average goals made per game by a team when home for all seasons" do
+      team1_average = @stat_generator.average_goals_per_game_by_team("1", "home")
+
+      expect(team1_average).to eq(1.97)
+
+      team2_average = @stat_generator.average_goals_per_game_by_team("2", "home")
+
+      expect(team2_average).to eq(2.28)
     end
   end
 
@@ -214,6 +274,38 @@ RSpec.describe StatGenerator do
   describe "#worst_offense" do
     it "can return the name of the team with the lowest average number of goals scored per game across all seasons" do
       worst_team = @stat_generator.worst_offense
+
+      expect(worst_team).to eq("Utah Royals FC")
+    end
+  end
+
+  describe "#highest_scoring_visitor" do
+    it "can return the name with the highest average score per game across all seasons when they are away" do
+      best_visitor = @stat_generator.highest_scoring_visitor
+
+      expect(best_visitor).to eq("FC Dallas")
+    end
+  end
+
+  describe "#lowest_scoring_visitor" do
+    it "can return the name of the team with the lowest average score per game across all seasons when they are a visitor" do
+      worst_visitor = @stat_generator.lowest_scoring_visitor
+
+      expect(worst_visitor).to eq("San Jose Earthquakes")
+    end
+  end
+
+  describe "#highest_scoring_home_team" do
+    it "can return the name with the highest average score per game across all seasons when they are home" do
+      best_team = @stat_generator.highest_scoring_home_team
+
+      expect(best_team).to eq("Reign FC")
+    end
+  end
+
+  describe "#lowest_scoring_home_team" do
+    it "can return the name of the team with the lowest average score per game across all seasons when they are at home" do
+      worst_team = @stat_generator.lowest_scoring_home_team
 
       expect(worst_team).to eq("Utah Royals FC")
     end
