@@ -48,6 +48,7 @@ RSpec.describe StatGenerator do
       expect(@stat_generator.total_home_wins).to eq(3237)
 
       expect(@stat_generator.percentage_home_wins).to eq(0.44)
+      expect(@stat_generator.percentage_home_wins).to_not eq(3.09)
     end
   end
 
