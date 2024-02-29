@@ -1,9 +1,8 @@
 require "CSV"
 class Game
 
-  attr_reader :away_goals, :home_goals
-  attr_reader :game_id,
-              :season
+  attr_reader :away_goals, :home_goals, :game_id, :season 
+
 
   def initialize(details)
     @game_id = details[:game_id]
