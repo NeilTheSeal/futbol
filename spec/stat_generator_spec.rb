@@ -33,7 +33,6 @@ RSpec.describe StatGenerator do
 
     it 'Calculates the lowest total score of all games' do 
       expect(@stat_generator.lowest_total_score).to eq(0)
-      expect(@stat_generator.lowest_total_score).to_not eq(9)
 
     end
     
