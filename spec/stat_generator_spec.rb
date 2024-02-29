@@ -51,15 +51,18 @@ RSpec.describe StatGenerator do
       expect(@stat_generator.percentage_home_wins).to_not eq(3.09)
     end
   end
-
+  
   describe '#percent wins away ' do
-    it 'Sees the percent won away ' do
-      
-      expect(@stat_generator.count_of_games).to_not eq(9)
-      expect(@stat_generator.count_of_games).to eq(7441)
-
-      expect(@stat_generator.total_away_wins).to_not eq(98)
-      expect(@stat_generator.total_away_wins).to eq(2687)
+  it 'Sees the percent won away ' do
+    
+    expect(@stat_generator.count_of_games).to_not eq(9)
+    expect(@stat_generator.count_of_games).to eq(7441)
+    
+    expect(@stat_generator.total_away_wins).to_not eq(98)
+    expect(@stat_generator.total_away_wins).to eq(2687)
+    
+    expect(@stat_generator.percentage_away_wins).to eq(0.36)
+    expect(@stat_generator.percentage_away_wins).to_not eq(3.09)
     end
   end
 
