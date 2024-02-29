@@ -197,5 +197,13 @@ RSpec.describe StatGenerator do
       expect(best_team).to eq("Reign FC")
     end
   end
+
+  describe "#lowest_scoring_home_team" do
+    it "can return the name of the team with the lowest average score per game across all seasons when they are at home" do
+      worst_team = @stat_generator.lowest_scoring_home_team
+
+      expect(worst_team).to eq("Utah Royals FC")
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength
