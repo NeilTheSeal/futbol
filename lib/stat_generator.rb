@@ -166,15 +166,29 @@ class StatGenerator
     end
   end
 
+  def season_names
+    @games.map do |game|
+      game.season
+    end.uniq
+  end
+
+  def count_of_games_by_season
+    name_by_count = Hash.new(0)
+    @games.each do |game|
+      season_names.each do |season|
+        name_by_count[game.season] += 1 if game.season == season 
+      end
+    end
+    name_by_count
+  end
+
   def total_goals
     @games.sum do |game|
       game.total_score
     end.to_f
   end
 
-
   def average_goals_per_game 
-
     (total_goals / @games.count).round(2)
   end
 
