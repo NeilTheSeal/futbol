@@ -166,6 +166,18 @@ class StatGenerator
     end
   end
 
+  def total_goals
+    @games.sum do |game|
+      game.total_score
+    end.to_f
+  end
+
+
+  def average_goals_per_game 
+
+    (total_goals / @games.count).round(2)
+  end
+
   def average_goals_per_game_by_team(team_id, home_or_away = "all")
     if home_or_away == "away"
       (total_goals_by_team(team_id, home_or_away).to_f / total_games_played_by_team(team_id, home_or_away)).round(2)
