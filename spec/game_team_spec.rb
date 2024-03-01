@@ -2,7 +2,7 @@ require "spec_helper"
 
 RSpec.describe GameTeam do
   before(:all) do
-    @game_teams = GameTeam.create_game_teams("./data/game_teams.csv")
+    @game_teams = GameTeam.create_game_teams("./data/game_teams_fixture.csv")
   end
 
   before(:each) do
@@ -15,7 +15,7 @@ RSpec.describe GameTeam do
     end
 
     it "has a team_id" do
-      expect(@game_team1.team_id).to eq("3")
+      expect(@game_team1.team_id).to eq("18")
     end
 
     it "has goals" do

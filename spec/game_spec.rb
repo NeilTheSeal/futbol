@@ -2,7 +2,7 @@ require "spec_helper"
 
 RSpec.describe Game do
   before(:all) do
-    @games = Game.create_games("./data/games.csv")
+    @games = Game.create_games("./data/games_fixture.csv")
   end
 
   before(:each) do
