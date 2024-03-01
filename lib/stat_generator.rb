@@ -45,13 +45,41 @@ class StatGenerator
 
   def total_ties
     @games.count do |game|
-     game.away_goals == game.home_goals
+      game.away_goals == game.home_goals
     end
   end
-
+  
   def percentage_ties
     (total_ties / count_of_games.to_f).round(2)
   end 
+  
+  def season_names
+    @games.map do |game|
+      game.season
+    end.uniq
+  end
+  
+  def count_of_games_by_season
+    name_by_count = Hash.new(0)
+    @games.each do |game|
+      season_names.each do |season|
+        name_by_count[game.season] += 1 if game.season == season 
+      end
+    end
+    name_by_count
+  end
+
+  def total_goals
+    @games.sum do |game|
+      game.total_score
+    end.to_f
+  end
+  
+  def average_goals_per_game 
+    (total_goals / @games.count).round(2)
+  end
+  
+ 
 
   def seasons
     seasons = []
@@ -60,7 +88,7 @@ class StatGenerator
     end
     seasons
   end
-
+  
   def id_by_season
     season_id_list = generate_array_hash(seasons)
     @games.each do |game|
@@ -166,31 +194,6 @@ class StatGenerator
     end
   end
 
-  def season_names
-    @games.map do |game|
-      game.season
-    end.uniq
-  end
-
-  def count_of_games_by_season
-    name_by_count = Hash.new(0)
-    @games.each do |game|
-      season_names.each do |season|
-        name_by_count[game.season] += 1 if game.season == season 
-      end
-    end
-    name_by_count
-  end
-
-  def total_goals
-    @games.sum do |game|
-      game.total_score
-    end.to_f
-  end
-
-  def average_goals_per_game 
-    (total_goals / @games.count).round(2)
-  end
 
   def average_goals_per_game_by_team(team_id, home_or_away = "all")
     if home_or_away == "away"
