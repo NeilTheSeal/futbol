@@ -13,45 +13,45 @@ class StatGenerator
     end.total_score
   end
 
-  def lowest_total_score 
-    @games.min_by do |game| 
+  def lowest_total_score
+    @games.min_by do |game|
       game.total_score
     end.total_score
   end
 
   def count_of_games
-    @games.count 
+    @games.count
   end
 
   def total_home_wins
     @games.count do |game|
-     game.home_goals > game.away_goals
-   end
+      game.home_goals > game.away_goals
+    end
   end
- 
+
   def percentage_home_wins
-    (total_home_wins / count_of_games.to_f ).round(2)
+    (total_home_wins / count_of_games.to_f).round(2)
   end
 
   def total_away_wins
     @games.count do |game|
-     game.away_goals > game.home_goals
-   end
+      game.away_goals > game.home_goals
+    end
   end
- 
+
   def percentage_away_wins
-    (total_away_wins / count_of_games.to_f ).round(2)
+    (total_away_wins / count_of_games.to_f).round(2)
   end
 
   def total_ties
     @games.count do |game|
-     game.away_goals == game.home_goals
+      game.away_goals == game.home_goals
     end
   end
 
   def percentage_ties
     (total_ties / count_of_games.to_f).round(2)
-  end 
+  end
 
   def seasons
     seasons = []
@@ -157,9 +157,13 @@ class StatGenerator
   def total_goals_by_team(team_id, home_or_away = "all")
     @game_teams.sum do |game_team|
       if home_or_away == "away"
-        (game_team.goals if game_team.team_id == team_id && game_team.home_or_away == "away").to_i
+        (if game_team.team_id == team_id && game_team.home_or_away == "away"
+           game_team.goals
+         end).to_i
       elsif home_or_away == "home"
-        (game_team.goals if game_team.team_id == team_id && game_team.home_or_away == "home").to_i
+        (if game_team.team_id == team_id && game_team.home_or_away == "home"
+           game_team.goals
+         end).to_i
       else
         (game_team.goals if game_team.team_id == team_id).to_i
       end
@@ -168,9 +172,15 @@ class StatGenerator
 
   def average_goals_per_game_by_team(team_id, home_or_away = "all")
     if home_or_away == "away"
-      (total_goals_by_team(team_id, home_or_away).to_f / total_games_played_by_team(team_id, home_or_away)).round(2)
+      (total_goals_by_team(team_id,
+                           home_or_away).to_f / total_games_played_by_team(
+                             team_id, home_or_away
+                           )).round(2)
     elsif home_or_away == "home"
-      (total_goals_by_team(team_id, home_or_away).to_f / total_games_played_by_team(team_id, home_or_away)).round(2)
+      (total_goals_by_team(team_id,
+                           home_or_away).to_f / total_games_played_by_team(
+                             team_id, home_or_away
+                           )).round(2)
     else
       (total_goals_by_team(team_id).to_f / total_games_played_by_team(team_id)).round(2)
     end
