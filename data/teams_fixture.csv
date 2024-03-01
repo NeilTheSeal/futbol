@@ -1,0 +1,6 @@
+team_id,franchiseId,teamName,abbreviation,Stadium,link
+19,18,Philadelphia Union,PHI,Talen Energy Stadium,/api/v1/teams/19
+18,34,Minnesota United FC,MIN,Allianz Field,/api/v1/teams/18
+52,35,Portland Thorns FC,ORT,Providence Park,/api/v1/teams/52
+24,32,Real Salt Lake,RSL,Rio Tinto Stadium,/api/v1/teams/24
+53,28,Columbus Crew SC,CCS,Mapfre Stadium,/api/v1/teams/53
