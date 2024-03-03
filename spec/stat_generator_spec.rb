@@ -23,22 +23,18 @@ RSpec.describe StatGenerator do
     end
   end
 
-  describe '#checks highest total score and lowest total score' do
-    it 'Calculates the highest total score for all games' do
+  describe "#checks highest total score and lowest total score" do
+    it "Calculates the highest total score for all games" do
       expect(@stat_generator.highest_total_score).to eq(7)
-      # @game2 = Game.new() try to prove that 
     end
 
-    it 'Calculates the lowest total score of all games' do 
+    it "Calculates the lowest total score of all games" do
       expect(@stat_generator.lowest_total_score).to eq(3)
-
     end
-    
   end
 
-  describe '#percent wins at home ' do
-    it 'Sees the percent won at home ' do
-      
+  describe "#percent wins at home " do
+    it "Sees the percent won at home " do
       expect(@stat_generator.count_of_games).to eq(14)
 
       expect(@stat_generator.total_home_wins).to eq(8)
@@ -46,61 +42,49 @@ RSpec.describe StatGenerator do
       expect(@stat_generator.percentage_home_wins).to eq(0.57)
     end
   end
-  
-  describe '#percent wins away ' do
-  it 'Sees the percent won away ' do
-    
-    expect(@stat_generator.count_of_games).to eq(14)
-    
-    expect(@stat_generator.total_away_wins).to eq(5)
-    
-    expect(@stat_generator.percentage_away_wins).to eq(0.36)
+
+  describe "#percent wins visitor " do
+    it "Sees the percent won visitor " do
+      expect(@stat_generator.count_of_games).to eq(14)
+
+      expect(@stat_generator.total_visitor_wins).to eq(5)
+
+      expect(@stat_generator.percentage_visitor_wins).to eq(0.36)
     end
   end
-  
-  describe '#percent ties ' do
-    it 'Sees the percent of how many games they had a tie' do
-      
+
+  describe "#percent ties " do
+    it "Sees the percent of how many games they had a tie" do
       expect(@stat_generator.count_of_games).to eq(14)
-      
+
       expect(@stat_generator.total_ties).to eq(1)
-      
+
       expect(@stat_generator.percentage_ties).to eq(0.07)
     end
   end
 
-  describe '#count of games by season' do
-    it 'count all games per season' do
+  describe "#count of games by season" do
+    it "count all games per season" do
       expected = {
-      # "20122013"=>806,
-      "20162017"=>6,
-      "20142015"=>8
-      # "20152016"=>1321,
-      # "20132014"=>1323,
-      # "20172018"=>1355
-    }
+        "20162017" => 6,
+        "20142015" => 8
+      }
       expect(@stat_generator.count_of_games_by_season).to eq(expected)
     end
   end
 
-  describe '#average goals per game ' do
-    it 'calculates average goals per game ' do
+  describe "#average goals per game " do
+    it "calculates average goals per game " do
       expect(@stat_generator.average_goals_per_game).to eq(4.21)
     end
   end
 
-  describe '#average goals by season' do
-    it 'calculates the average goals each season' do
-
+  describe "#average goals by season" do
+    it "calculates the average goals each season" do
       expected = {
-      # "20122013"=>4.12,
-      "20162017"=>4.0,
-      "20142015"=>4.38
-      # "20152016"=>4.16,
-      # "20132014"=>4.19,
-      # "20172018"=>4.44
-    }
-
+        "20162017" => 4.0,
+        "20142015" => 4.38
+      }
       expect(@stat_generator.average_goals_by_season).to eq(expected)
     end
   end
@@ -113,7 +97,9 @@ RSpec.describe StatGenerator do
 
     it "can list game ids by season" do
       season_id_list = @stat_generator.id_by_season
+
       expect(season_id_list.keys.empty?).to eq(false)
+
       season_id_list.each_value do |id_array|
         expect(id_array.empty?).to eq(false)
       end
@@ -121,7 +107,9 @@ RSpec.describe StatGenerator do
 
     it "can list game teams by season" do
       season_game_team_list = @stat_generator.game_team_by_season
+
       expect(season_game_team_list.keys.empty?).to eq(false)
+
       season_game_team_list.each_value do |game_team_array|
         expect(game_team_array.empty?).to eq(false)
         expect(game_team_array).to all be_a(GameTeam)
@@ -130,12 +118,15 @@ RSpec.describe StatGenerator do
 
     it "can list every head coach" do
       coaches_list = @stat_generator.coaches
+
       expect(coaches_list.empty?).to be false
+
       expect(coaches_list).to all be_a String
     end
 
     it "can list head coaches by season" do
       coaches_list = @stat_generator.coaches_by_season
+
       coaches_list.each_value do |coach_array|
         expect(coach_array.empty?).to be false
         expect(coach_array).to all be_a String
@@ -145,6 +136,7 @@ RSpec.describe StatGenerator do
     it "can create hashes with array values" do
       keys = %w[A B C]
       hash = @stat_generator.generate_array_hash(keys)
+
       expect(hash.keys).to all be_a(Symbol)
       expect(hash.values).to all be_a(Array)
     end
@@ -152,6 +144,7 @@ RSpec.describe StatGenerator do
     it "can create hashes with zero values" do
       keys = %w[A B C]
       hash = @stat_generator.generate_integer_hash(keys)
+
       expect(hash.keys).to all be_a(Symbol)
       expect(hash.values).to all eq(0)
     end
@@ -160,6 +153,7 @@ RSpec.describe StatGenerator do
       expect(@stat_generator.coach_evaluation(
                "20162017", "winner"
              )).to eq "Peter Laviolette"
+
       expect(@stat_generator.coach_evaluation(
                "20142015", "winner"
              )).to eq "Bruce Boudreau"
@@ -169,9 +163,26 @@ RSpec.describe StatGenerator do
       expect(@stat_generator.coach_evaluation(
                "20162017", "loser"
              )).to eq "Peter Laviolette"
+
       expect(@stat_generator.coach_evaluation(
                "20142015", "loser"
              )).to eq("Craig MacTavish").or(eq("Paul Maurice"))
+    end
+
+    it "can generate a hash of team stats by season" do
+      hash = @stat_generator.stats_by_id_and_season
+
+      expect(hash.keys).to all be_a(Symbol)
+
+      hash.each_value do |id_hash|
+        expect(id_hash.keys).to all be_a(Symbol)
+
+        id_hash.each_value do |stats|
+          expect(stats[:shots]).to be_a(Integer)
+          expect(stats[:goals]).to be_a(Integer)
+          expect(stats[:tackles]).to be_a(Integer)
+        end
+      end
     end
   end
 
@@ -183,7 +194,27 @@ RSpec.describe StatGenerator do
 
     it "can display the worst coach" do
       expect(@stat_generator.worst_coach("20162017")).to eq "Peter Laviolette"
-      expect(@stat_generator.worst_coach("20142015")).to eq("Paul Maurice").or(eq("Ted Nolan"))
+      expect(@stat_generator.worst_coach("20142015")).to eq("Craig MacTavish").or(eq("Paul Maurice"))
+    end
+
+    it "can display the team with highest ratio of shots to goals for the season" do
+      expect(@stat_generator.most_accurate_team("20142015")).to eq "Columbus Crew SC"
+      expect(@stat_generator.most_accurate_team("20162017")).to eq "Minnesota United FC"
+    end
+
+    it "can display the team with the lowest ratio of shots to goals for the season" do
+      expect(@stat_generator.least_accurate_team("20142015")).to eq "Portland Thorns FC"
+      expect(@stat_generator.least_accurate_team("20162017")).to eq "Philadelphia Union"
+    end
+
+    it "can display the team with the most tackles for the season" do
+      expect(@stat_generator.most_tackles("20142015")).to eq "Portland Thorns FC"
+      expect(@stat_generator.most_tackles("20162017")).to eq "Minnesota United FC"
+    end
+
+    it "can display the team with the fewest tackles for the season" do
+      expect(@stat_generator.fewest_tackles("20142015")).to eq "Philadelphia Union"
+      expect(@stat_generator.fewest_tackles("20162017")).to eq "Philadelphia Union"
     end
   end
 
@@ -214,12 +245,12 @@ RSpec.describe StatGenerator do
       expect(team2_games).to eq(4)
     end
 
-    it "can find the total games played by a team when away for all seasons" do
-      team1_games = @stat_generator.total_games_played_by_team("19", "away")
+    it "can find the total games played by a team when visitor for all seasons" do
+      team1_games = @stat_generator.total_games_played_by_team("19", "visitor")
 
       expect(team1_games).to eq(3)
 
-      team2_games = @stat_generator.total_games_played_by_team("24", "away")
+      team2_games = @stat_generator.total_games_played_by_team("24", "visitor")
 
       expect(team2_games).to eq(2)
     end
@@ -246,12 +277,12 @@ RSpec.describe StatGenerator do
       expect(team2_goals).to eq(11)
     end
 
-    it "can find the total goals made by a team when away for all seasons" do
-      team1_goals = @stat_generator.total_goals_by_team("19", "away")
+    it "can find the total goals made by a team when visitor for all seasons" do
+      team1_goals = @stat_generator.total_goals_by_team("19", "visitor")
 
       expect(team1_goals).to eq(3)
 
-      team2_goals = @stat_generator.total_goals_by_team("53", "away")
+      team2_goals = @stat_generator.total_goals_by_team("53", "visitor")
 
       expect(team2_goals).to eq(9)
     end
@@ -278,22 +309,26 @@ RSpec.describe StatGenerator do
       expect(team2_average).to eq(2.75)
     end
 
-    it "can find the average goals made per game by a team when away for all seasons" do
-      team1_average = @stat_generator.average_goals_per_game_by_team("19", "away")
+    it "can find the average goals made per game by a team when visitor for all seasons" do
+      team1_average = @stat_generator.average_goals_per_game_by_team("19",
+                                                                     "visitor")
 
       expect(team1_average).to eq(1.00)
 
-      team2_average = @stat_generator.average_goals_per_game_by_team("53", "away")
+      team2_average = @stat_generator.average_goals_per_game_by_team("53",
+                                                                     "visitor")
 
       expect(team2_average).to eq(3.0)
     end
 
     it "can find the average goals made per game by a team when home for all seasons" do
-      team1_average = @stat_generator.average_goals_per_game_by_team("19", "home")
+      team1_average = @stat_generator.average_goals_per_game_by_team("19",
+                                                                     "home")
 
       expect(team1_average).to eq(2.75)
 
-      team2_average = @stat_generator.average_goals_per_game_by_team("53", "home")
+      team2_average = @stat_generator.average_goals_per_game_by_team("53",
+                                                                     "home")
 
       expect(team2_average).to eq(2.0)
     end
@@ -316,7 +351,7 @@ RSpec.describe StatGenerator do
   end
 
   describe "#highest_scoring_visitor" do
-    it "can return the name with the highest average score per game across all seasons when they are away" do
+    it "can return the name with the highest average score per game across all seasons when they are visitor" do
       best_visitor = @stat_generator.highest_scoring_visitor
 
       expect(best_visitor).to eq("Real Salt Lake")
