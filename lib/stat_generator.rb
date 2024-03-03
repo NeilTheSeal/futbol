@@ -72,24 +72,24 @@ class StatGenerator
   end
 
   def stats_by_id_and_season
-    list = {}
-    seasons.each { |season| list[season.to_sym] = {} }
+    stats = {}
+    seasons.each { |season| stats[season.to_sym] = {} }
     game_team_by_season.each do |season, game_team_array|
       game_team_array.each do |game_team|
-        if list[season][game_team.team_id.to_sym].nil?
-          list[season][game_team.team_id.to_sym] = {
+        if stats[season][game_team.team_id.to_sym].nil?
+          stats[season][game_team.team_id.to_sym] = {
             shots: game_team.shots,
             goals: game_team.goals,
             tackles: game_team.tackles
           }
         else
-          list[season][game_team.team_id.to_sym][:shots] += game_team.shots
-          list[season][game_team.team_id.to_sym][:goals] += game_team.goals
-          list[season][game_team.team_id.to_sym][:tackles] += game_team.tackles
+          stats[season][game_team.team_id.to_sym][:shots] += game_team.shots
+          stats[season][game_team.team_id.to_sym][:goals] += game_team.goals
+          stats[season][game_team.team_id.to_sym][:tackles] += game_team.tackles
         end
       end
     end
-    list
+    stats
   end
 
   def most_accurate_team(season)
