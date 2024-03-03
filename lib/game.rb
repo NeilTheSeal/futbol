@@ -1,12 +1,10 @@
 require "CSV"
 class Game
-
-  attr_reader :away_goals, :home_goals, :game_id, :season 
-
+  attr_reader :visitor_goals, :home_goals, :game_id, :season
 
   def initialize(details)
     @game_id = details[:game_id]
-    @away_goals = details[:away_goals].to_i
+    @visitor_goals = details[:away_goals].to_i
     @home_goals = details[:home_goals].to_i
     @season = details[:season]
   end
@@ -24,7 +22,6 @@ class Game
   end
 
   def total_score
-    @away_goals + @home_goals
+    @visitor_goals + @home_goals
   end
 end
-

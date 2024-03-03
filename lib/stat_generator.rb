@@ -25,7 +25,7 @@ class StatGenerator
 
   def total_home_wins
     @games.count do |game|
-      game.home_goals > game.away_goals
+      game.home_goals > game.visitor_goals
     end
   end
 
@@ -33,19 +33,19 @@ class StatGenerator
     (total_home_wins / count_of_games.to_f).round(2)
   end
 
-  def total_away_wins
+  def total_visitor_wins
     @games.count do |game|
-      game.away_goals > game.home_goals
+      game.visitor_goals > game.home_goals
     end
   end
 
-  def percentage_away_wins
-    (total_away_wins / count_of_games.to_f).round(2)
+  def percentage_visitor_wins
+    (total_visitor_wins / count_of_games.to_f).round(2)
   end
 
   def total_ties
     @games.count do |game|
-      game.away_goals == game.home_goals
+      game.visitor_goals == game.home_goals
     end
   end
 
@@ -71,7 +71,7 @@ class StatGenerator
     season_id_list
   end
 
-  def stats_by_id_and_season # rubocop:disable Metrics/MethodLength
+  def stats_by_id_and_season
     list = {}
     seasons.each { |season| list[season.to_sym] = {} }
     game_team_by_season.each do |season, game_team_array|
@@ -205,26 +205,26 @@ class StatGenerator
     @teams.count
   end
 
-  def total_games_played_by_team(team_id, home_or_away = "all")
+  def total_games_played_by_team(team_id, home_or_visitor = "all")
     @game_teams.count do |game_team|
-      if home_or_away == "away"
-        game_team.team_id == team_id && game_team.home_or_away == "away"
-      elsif home_or_away == "home"
-        game_team.team_id == team_id && game_team.home_or_away == "home"
+      if home_or_visitor == "visitor"
+        game_team.team_id == team_id && game_team.home_or_visitor == "away"
+      elsif home_or_visitor == "home"
+        game_team.team_id == team_id && game_team.home_or_visitor == "home"
       else
         game_team.team_id == team_id
       end
     end
   end
 
-  def total_goals_by_team(team_id, home_or_away = "all")
+  def total_goals_by_team(team_id, home_or_visitor = "all")
     @game_teams.sum do |game_team|
-      if home_or_away == "away"
-        (if game_team.team_id == team_id && game_team.home_or_away == "away"
+      if home_or_visitor == "visitor"
+        (if game_team.team_id == team_id && game_team.home_or_visitor == "away"
            game_team.goals
          end).to_i
-      elsif home_or_away == "home"
-        (if game_team.team_id == team_id && game_team.home_or_away == "home"
+      elsif home_or_visitor == "home"
+        (if game_team.team_id == team_id && game_team.home_or_visitor == "home"
            game_team.goals
          end).to_i
       else
@@ -233,16 +233,16 @@ class StatGenerator
     end
   end
 
-  def average_goals_per_game_by_team(team_id, home_or_away = "all")
-    if home_or_away == "away"
+  def average_goals_per_game_by_team(team_id, home_or_visitor = "all")
+    if home_or_visitor == "visitor"
       (total_goals_by_team(team_id,
-                           home_or_away).to_f / total_games_played_by_team(
-                             team_id, home_or_away
+                           home_or_visitor).to_f / total_games_played_by_team(
+                             team_id, home_or_visitor
                            )).round(2)
-    elsif home_or_away == "home"
+    elsif home_or_visitor == "home"
       (total_goals_by_team(team_id,
-                           home_or_away).to_f / total_games_played_by_team(
-                             team_id, home_or_away
+                           home_or_visitor).to_f / total_games_played_by_team(
+                             team_id, home_or_visitor
                            )).round(2)
     else
       (total_goals_by_team(team_id).to_f / total_games_played_by_team(team_id)).round(2)
@@ -257,7 +257,7 @@ class StatGenerator
 
   def highest_scoring_visitor
     @teams.max_by do |team|
-      average_goals_per_game_by_team(team.team_id, "away")
+      average_goals_per_game_by_team(team.team_id, "visitor")
     end.team_name
   end
 
@@ -275,7 +275,7 @@ class StatGenerator
 
   def lowest_scoring_visitor
     @teams.min_by do |team|
-      average_goals_per_game_by_team(team.team_id, "away")
+      average_goals_per_game_by_team(team.team_id, "visitor")
     end.team_name
   end
 
