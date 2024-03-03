@@ -189,10 +189,14 @@ RSpec.describe StatGenerator do
       expect(@stat_generator.total_goals).to eq(59.0)
     end
 
-    it "can see the total goals for each season" do 
+    it "can display the total goals for each season" do 
       expect(@stat_generator.total_goals_by_season("20162017")).to eq(24.0)
       expect(@stat_generator.total_goals_by_season("20142015")).to eq(35.0)
-
+    end
+    
+    it "can display the average goals for a season" do 
+      expect(@stat_generator.average_goals_per_season("20162017")).to eq(4.0)
+      expect(@stat_generator.average_goals_per_season("20142015")).to eq(4.375)
     end
   end
 
