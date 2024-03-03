@@ -1,5 +1,6 @@
 require "spec_helper"
 
+# rubocop:disable Metrics/BlockLength
 RSpec.describe StatTracker do
   before(:all) do
     game_path = "./data/games_fixture.csv"
@@ -82,22 +83,22 @@ RSpec.describe StatTracker do
   end
 
   describe "#count_of_teams" do
-  it "can count the number of teams" do
-    count = @stat_tracker.count_of_teams
+    it "can count the number of teams" do
+      count = @stat_tracker.count_of_teams
 
-    expect(count).to be_a(Integer)
+      expect(count).to be_a(Integer)
 
-    details = Hash.new(0)
-    @stat_tracker.teams << Team.new(details)
-    new_count = @stat_tracker.count_of_teams
+      details = Hash.new(0)
+      @stat_tracker.teams << Team.new(details)
+      new_count = @stat_tracker.count_of_teams
 
-    expect(new_count).to eq(count + 1)
+      expect(new_count).to eq(count + 1)
 
-    @stat_tracker.teams.pop
+      @stat_tracker.teams.pop
+    end
   end
-end
 
-describe "#best_offense" do
+  describe "#best_offense" do
     it "can return the name of the team with the highest average number of goals scored per game across all seasons" do
       best_team = @stat_tracker.best_offense
 
@@ -177,3 +178,4 @@ describe "#best_offense" do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
