@@ -69,6 +69,42 @@ RSpec.describe StatGenerator do
     end
   end
 
+  describe '#count of games by season' do
+    it 'count all games per season' do
+      expected = {
+      # "20122013"=>806,
+      "20162017"=>6,
+      "20142015"=>8
+      # "20152016"=>1321,
+      # "20132014"=>1323,
+      # "20172018"=>1355
+    }
+      expect(@stat_generator.count_of_games_by_season).to eq(expected)
+    end
+  end
+
+  describe '#average goals per game ' do
+    it 'calculates average goals per game ' do
+      expect(@stat_generator.average_goals_per_game).to eq(4.21)
+    end
+  end
+
+  describe '#average goals by season' do
+    it 'calculates the average goals each season' do
+
+      expected = {
+      # "20122013"=>4.12,
+      "20162017"=>4.0,
+      "20142015"=>4.38
+      # "20152016"=>4.16,
+      # "20132014"=>4.19,
+      # "20172018"=>4.44
+    }
+
+      expect(@stat_generator.average_goals_by_season).to eq(expected)
+    end
+  end
+
   describe "#helper methods" do
     it "can list seasons" do
       seasons = %w[20162017 20142015]
