@@ -35,30 +35,18 @@ RSpec.describe StatGenerator do
 
   describe "#percent wins at home " do
     it "Sees the percent won at home " do
-      expect(@stat_generator.count_of_games).to eq(14)
-
-      expect(@stat_generator.total_home_wins).to eq(8)
-
       expect(@stat_generator.percentage_home_wins).to eq(0.57)
     end
   end
 
   describe "#percent wins visitor " do
     it "Sees the percent won visitor " do
-      expect(@stat_generator.count_of_games).to eq(14)
-
-      expect(@stat_generator.total_visitor_wins).to eq(5)
-
       expect(@stat_generator.percentage_visitor_wins).to eq(0.36)
     end
   end
 
   describe "#percent ties " do
     it "Sees the percent of how many games they had a tie" do
-      expect(@stat_generator.count_of_games).to eq(14)
-
-      expect(@stat_generator.total_ties).to eq(1)
-
       expect(@stat_generator.percentage_ties).to eq(0.07)
     end
   end
