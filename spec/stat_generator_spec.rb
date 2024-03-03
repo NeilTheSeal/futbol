@@ -188,6 +188,12 @@ RSpec.describe StatGenerator do
     it "can display total goals for all games " do 
       expect(@stat_generator.total_goals).to eq(59.0)
     end
+
+    it "can see the total goals for each season" do 
+      expect(@stat_generator.total_goals_by_season("20162017")).to eq(24.0)
+      expect(@stat_generator.total_goals_by_season("20142015")).to eq(35.0)
+
+    end
   end
 
   describe "#season statistics" do
