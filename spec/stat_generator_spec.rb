@@ -85,7 +85,6 @@ RSpec.describe StatGenerator do
         "20162017" => 4.0,
         "20142015" => 4.38
       }
-
       expect(@stat_generator.average_goals_by_season).to eq(expected)
     end
   end
@@ -98,7 +97,9 @@ RSpec.describe StatGenerator do
 
     it "can list game ids by season" do
       season_id_list = @stat_generator.id_by_season
+
       expect(season_id_list.keys.empty?).to eq(false)
+
       season_id_list.each_value do |id_array|
         expect(id_array.empty?).to eq(false)
       end
@@ -106,7 +107,9 @@ RSpec.describe StatGenerator do
 
     it "can list game teams by season" do
       season_game_team_list = @stat_generator.game_team_by_season
+
       expect(season_game_team_list.keys.empty?).to eq(false)
+
       season_game_team_list.each_value do |game_team_array|
         expect(game_team_array.empty?).to eq(false)
         expect(game_team_array).to all be_a(GameTeam)
@@ -115,12 +118,15 @@ RSpec.describe StatGenerator do
 
     it "can list every head coach" do
       coaches_list = @stat_generator.coaches
+
       expect(coaches_list.empty?).to be false
+
       expect(coaches_list).to all be_a String
     end
 
     it "can list head coaches by season" do
       coaches_list = @stat_generator.coaches_by_season
+
       coaches_list.each_value do |coach_array|
         expect(coach_array.empty?).to be false
         expect(coach_array).to all be_a String
@@ -130,6 +136,7 @@ RSpec.describe StatGenerator do
     it "can create hashes with array values" do
       keys = %w[A B C]
       hash = @stat_generator.generate_array_hash(keys)
+
       expect(hash.keys).to all be_a(Symbol)
       expect(hash.values).to all be_a(Array)
     end
@@ -137,6 +144,7 @@ RSpec.describe StatGenerator do
     it "can create hashes with zero values" do
       keys = %w[A B C]
       hash = @stat_generator.generate_integer_hash(keys)
+
       expect(hash.keys).to all be_a(Symbol)
       expect(hash.values).to all eq(0)
     end
@@ -145,6 +153,7 @@ RSpec.describe StatGenerator do
       expect(@stat_generator.coach_evaluation(
                "20162017", "winner"
              )).to eq "Peter Laviolette"
+
       expect(@stat_generator.coach_evaluation(
                "20142015", "winner"
              )).to eq "Bruce Boudreau"
@@ -154,6 +163,7 @@ RSpec.describe StatGenerator do
       expect(@stat_generator.coach_evaluation(
                "20162017", "loser"
              )).to eq "Peter Laviolette"
+
       expect(@stat_generator.coach_evaluation(
                "20142015", "loser"
              )).to eq("Craig MacTavish").or(eq("Paul Maurice"))
@@ -161,9 +171,12 @@ RSpec.describe StatGenerator do
 
     it "can generate a hash of team stats by season" do
       hash = @stat_generator.stats_by_id_and_season
+
       expect(hash.keys).to all be_a(Symbol)
+
       hash.each_value do |id_hash|
         expect(id_hash.keys).to all be_a(Symbol)
+
         id_hash.each_value do |stats|
           expect(stats[:shots]).to be_a(Integer)
           expect(stats[:goals]).to be_a(Integer)
