@@ -44,13 +44,13 @@ RSpec.describe StatGenerator do
     end
   end
 
-  describe "#percent wins away " do
-    xit "Sees the percent won away " do
+  describe "#percent wins visitor " do
+    xit "Sees the percent won visitor " do
       expect(@stat_generator.count_of_games).to eq(7441)
 
-      expect(@stat_generator.total_away_wins).to eq(2687)
+      expect(@stat_generator.total_visitor_wins).to eq(2687)
 
-      expect(@stat_generator.percentage_away_wins).to eq(0.36)
+      expect(@stat_generator.percentage_visitor_wins).to eq(0.36)
     end
   end
 
@@ -206,12 +206,12 @@ RSpec.describe StatGenerator do
       expect(team2_games).to eq(328)
     end
 
-    xit "can find the total games played by a team when away for all seasons" do
-      team1_games = @stat_generator.total_games_played_by_team("19", "away")
+    xit "can find the total games played by a team when visitor for all seasons" do
+      team1_games = @stat_generator.total_games_played_by_team("19", "visitor")
 
       expect(team1_games).to eq(254)
 
-      team2_games = @stat_generator.total_games_played_by_team("24", "away")
+      team2_games = @stat_generator.total_games_played_by_team("24", "visitor")
 
       expect(team2_games).to eq(258)
     end
@@ -238,12 +238,12 @@ RSpec.describe StatGenerator do
       expect(team2_goals).to eq(620)
     end
 
-    xit "can find the total goals made by a team when away for all seasons" do
-      team1_goals = @stat_generator.total_goals_by_team("19", "away")
+    xit "can find the total goals made by a team when visitor for all seasons" do
+      team1_goals = @stat_generator.total_goals_by_team("19", "visitor")
 
       expect(team1_goals).to eq(519)
 
-      team2_goals = @stat_generator.total_goals_by_team("53", "away")
+      team2_goals = @stat_generator.total_goals_by_team("53", "visitor")
 
       expect(team2_goals).to eq(303)
     end
@@ -270,14 +270,14 @@ RSpec.describe StatGenerator do
       expect(team2_average).to eq(1.89)
     end
 
-    xit "can find the average goals made per game by a team when away for all seasons" do
+    xit "can find the average goals made per game by a team when visitor for all seasons" do
       team1_average = @stat_generator.average_goals_per_game_by_team("19",
-                                                                     "away")
+                                                                     "visitor")
 
       expect(team1_average).to eq(2.04)
 
       team2_average = @stat_generator.average_goals_per_game_by_team("53",
-                                                                     "away")
+                                                                     "visitor")
 
       expect(team2_average).to eq(1.85)
     end
@@ -312,7 +312,7 @@ RSpec.describe StatGenerator do
   end
 
   describe "#highest_scoring_visitor" do
-    xit "can return the name with the highest average score per game across all seasons when they are away" do
+    xit "can return the name with the highest average score per game across all seasons when they are visitor" do
       best_visitor = @stat_generator.highest_scoring_visitor
 
       expect(best_visitor).to eq("FC Dallas")
