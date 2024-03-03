@@ -2,7 +2,7 @@ require "spec_helper"
 
 RSpec.describe Team do
   before(:all) do
-    @teams = Team.create_teams("./data/teams.csv")
+    @teams = Team.create_teams("./data/teams_fixture.csv")
   end
 
   before(:each) do
@@ -15,11 +15,11 @@ RSpec.describe Team do
     end
 
     it "has a team_id" do
-      expect(@team1.team_id).to eq("1")
+      expect(@team1.team_id).to eq("19")
     end
 
     it "has a name" do
-      expect(@team1.team_name).to eq("Atlanta United")
+      expect(@team1.team_name).to eq("Philadelphia Union")
     end
   end
 

@@ -46,3 +46,17 @@
 - Rodrigo Chavez
   - [LinkedIn](https://www.linkedin.com/in/rodrigo-chavez-1b93a52b1/)
   - [GitHub](https://github.com/RodrigoACG/)
+
+## Name and links to tools used for retro
+- [Miro](https://miro.com/app/board/uXjVNoUgUOE=/?share_link_id=491775417603)
+- [Atlassian Retro Instructions](https://www.atlassian.com/team-playbook/plays/retrospective#instructions)
+
+## Top 3 things that went well
+- Communication has been solid, both over Slack and over Zoom
+- Project planning and creating a foundation was very effective
+- We were all on the same page and worked well together
+
+## 3 Things to improve on
+- Ask for help when you need it
+- More driver/navigator and group work
+- Asking more technical questions
