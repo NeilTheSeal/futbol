@@ -1,5 +1,6 @@
 require "spec_helper"
 
+# rubocop:disable Metrics/BlockLength
 RSpec.describe GameTeam do
   before(:all) do
     @game_teams = GameTeam.create_game_teams("./data/game_teams_fixture.csv")
@@ -22,14 +23,14 @@ RSpec.describe GameTeam do
       expect(@game_team1.goals).to eq(2)
     end
 
-    it "can be the away team" do
-      expect(@game_team1.home_or_away).to eq("away")
+    it "can be the visitor team" do
+      expect(@game_team1.home_or_visitor).to eq("away")
     end
 
     it "can be the home team" do
       @game_team2 = @game_teams[1]
 
-      expect(@game_team2.home_or_away).to eq("home")
+      expect(@game_team2.home_or_visitor).to eq("home")
     end
   end
 
@@ -39,3 +40,4 @@ RSpec.describe GameTeam do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
