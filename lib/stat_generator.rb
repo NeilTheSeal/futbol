@@ -53,7 +53,7 @@ class StatGenerator
     (total_ties / count_of_games.to_f).round(2)
   end 
   
-  def season_names
+  def seasons
     @games.map do |game|
       game.season
     end.uniq
@@ -62,7 +62,7 @@ class StatGenerator
   def count_of_games_by_season
     name_by_count = Hash.new(0)
     @games.each do |game|
-      season_names.each do |season|
+      seasons.each do |season|
         name_by_count[game.season] += 1 if game.season == season 
       end
     end
@@ -97,12 +97,12 @@ class StatGenerator
   def average_goals_by_season
     goals_by_season = Hash.new(0)
     # @games.each do |game|
-    #   season_names.each do |season|
+    #   seasons.each do |season|
     #     require 'pry'; binding.pry
     #     goals_by_season[season] = average_goals_per_season(season) if game.season == season
     #   end
     # end
-     season_names.each do |season|
+     seasons.each do |season|
       goals_by_season[season] = average_goals_per_season(season).round(2)
     end
     goals_by_season
