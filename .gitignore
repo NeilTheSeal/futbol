@@ -5,3 +5,4 @@ Gemfile.lock
 sorbet
 spec/stat_tracker_harness_spec.rb
 coverage
+**/.DS_Store
