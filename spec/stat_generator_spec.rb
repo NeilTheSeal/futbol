@@ -33,32 +33,38 @@ RSpec.describe StatGenerator do
     end
   end
 
-  describe "#percent wins at home " do
-    it "Sees the percent won at home " do
+  describe "#total games" do
+    it "displays the total number of games" do
       expect(@stat_generator.count_of_games).to eq(14)
+    end
+  end
 
+  describe "#wins at home " do
+    it "displays total home wins" do
       expect(@stat_generator.total_home_wins).to eq(8)
+    end
 
+    it "displays the percent won at home " do
       expect(@stat_generator.percentage_home_wins).to eq(0.57)
     end
   end
 
-  describe "#percent wins visitor " do
-    it "Sees the percent won visitor " do
-      expect(@stat_generator.count_of_games).to eq(14)
-
+  describe "#wins as visitor " do
+    it "displays total wins as visitor" do
       expect(@stat_generator.total_visitor_wins).to eq(5)
+    end
 
+    it "displays the percent won visitor " do
       expect(@stat_generator.percentage_visitor_wins).to eq(0.36)
     end
   end
 
-  describe "#percent ties " do
-    it "Sees the percent of how many games they had a tie" do
-      expect(@stat_generator.count_of_games).to eq(14)
-
+  describe "#ties " do
+    it "displays the total ties" do
       expect(@stat_generator.total_ties).to eq(1)
+    end
 
+    it "displays the percent of how many games they had a tie" do
       expect(@stat_generator.percentage_ties).to eq(0.07)
     end
   end
@@ -183,6 +189,20 @@ RSpec.describe StatGenerator do
           expect(stats[:tackles]).to be_a(Integer)
         end
       end
+    end
+
+    it "can display total goals for all games " do
+      expect(@stat_generator.total_goals).to eq(59.0)
+    end
+
+    it "can display the total goals for each season" do
+      expect(@stat_generator.total_goals_by_season("20162017")).to eq(24.0)
+      expect(@stat_generator.total_goals_by_season("20142015")).to eq(35.0)
+    end
+
+    it "can display the average goals for a season" do
+      expect(@stat_generator.average_goals_per_season("20162017")).to eq(4.0)
+      expect(@stat_generator.average_goals_per_season("20142015")).to eq(4.375)
     end
   end
 
