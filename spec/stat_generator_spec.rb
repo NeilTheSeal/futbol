@@ -26,7 +26,6 @@ RSpec.describe StatGenerator do
   describe "#checks highest total score and lowest total score" do
     it "Calculates the highest total score for all games" do
       expect(@stat_generator.highest_total_score).to eq(7)
-      # @game2 = Game.new() try to prove that
     end
 
     it "Calculates the lowest total score of all games" do
@@ -61,6 +60,33 @@ RSpec.describe StatGenerator do
       expect(@stat_generator.total_ties).to eq(1)
 
       expect(@stat_generator.percentage_ties).to eq(0.07)
+    end
+  end
+
+  describe "#count of games by season" do
+    it "count all games per season" do
+      expected = {
+        "20162017" => 6,
+        "20142015" => 8
+      }
+      expect(@stat_generator.count_of_games_by_season).to eq(expected)
+    end
+  end
+
+  describe "#average goals per game " do
+    it "calculates average goals per game " do
+      expect(@stat_generator.average_goals_per_game).to eq(4.21)
+    end
+  end
+
+  describe "#average goals by season" do
+    it "calculates the average goals each season" do
+      expected = {
+        "20162017" => 4.0,
+        "20142015" => 4.38
+      }
+
+      expect(@stat_generator.average_goals_by_season).to eq(expected)
     end
   end
 

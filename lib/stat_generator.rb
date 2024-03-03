@@ -8,15 +8,11 @@ class StatGenerator
   end
 
   def highest_total_score
-    @games.max_by do |game|
-      game.total_score
-    end.total_score
+    @games.max_by(&:total_score).total_score
   end
 
   def lowest_total_score
-    @games.min_by do |game|
-      game.total_score
-    end.total_score
+    @games.min_by(&:total_score).total_score
   end
 
   def count_of_games
@@ -54,11 +50,43 @@ class StatGenerator
   end
 
   def seasons
-    seasons = []
+    @games.map(&:season).uniq
+  end
+
+  def count_of_games_by_season
+    name_by_count = Hash.new(0)
     @games.each do |game|
-      seasons.push(game.season) unless seasons.include?(game.season)
+      seasons.each do |season|
+        name_by_count[game.season] += 1 if game.season == season
+      end
     end
-    seasons
+    name_by_count
+  end
+
+  def total_goals
+    @games.sum(&:total_score).to_f
+  end
+
+  def average_goals_per_game
+    (total_goals / @games.count).round(2)
+  end
+
+  def total_goals_by_season(season)
+    @games.sum do |game|
+      (game.total_score if game.season == season).to_i
+    end.to_f
+  end
+
+  def average_goals_per_season(season)
+    total_goals_by_season(season) / count_of_games_by_season[season]
+  end
+
+  def average_goals_by_season
+    goals_by_season = Hash.new(0)
+    seasons.each do |season|
+      goals_by_season[season] = average_goals_per_season(season).round(2)
+    end
+    goals_by_season
   end
 
   def id_by_season
