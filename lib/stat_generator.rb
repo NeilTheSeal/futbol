@@ -71,7 +71,7 @@ class StatGenerator
     season_id_list
   end
 
-  def shots_and_goals_by_id_and_season # rubocop:disable Metrics/MethodLength
+  def stats_by_id_and_season # rubocop:disable Metrics/MethodLength
     list = {}
     seasons.each { |season| list[season.to_sym] = {} }
     game_team_by_season.each do |season, game_team_array|
@@ -79,11 +79,13 @@ class StatGenerator
         if list[season][game_team.team_id.to_sym].nil?
           list[season][game_team.team_id.to_sym] = {
             shots: game_team.shots,
-            goals: game_team.goals
+            goals: game_team.goals,
+            tackles: game_team.tackles
           }
         else
           list[season][game_team.team_id.to_sym][:shots] += game_team.shots
           list[season][game_team.team_id.to_sym][:goals] += game_team.goals
+          list[season][game_team.team_id.to_sym][:tackles] += game_team.tackles
         end
       end
     end
@@ -92,7 +94,7 @@ class StatGenerator
 
   def most_accurate_team(season)
     team_and_ratio = {}
-    shots_and_goals = shots_and_goals_by_id_and_season[season.to_sym]
+    shots_and_goals = stats_by_id_and_season[season.to_sym]
     shots_and_goals.each do |team_id, shot_goal|
       team_and_ratio[team_id] = shot_goal[:goals].to_f / shot_goal[:shots]
     end
@@ -104,11 +106,29 @@ class StatGenerator
 
   def least_accurate_team(season)
     team_and_ratio = {}
-    shots_and_goals = shots_and_goals_by_id_and_season[season.to_sym]
+    shots_and_goals = stats_by_id_and_season[season.to_sym]
     shots_and_goals.each do |team_id, shot_goal|
       team_and_ratio[team_id] = shot_goal[:goals].to_f / shot_goal[:shots]
     end
     team_id = team_and_ratio.min_by { |_id, ratio| ratio }[0]
+    @teams.find do |team|
+      team.team_id == team_id.to_s
+    end.team_name
+  end
+
+  def most_tackles(season)
+    team_id = stats_by_id_and_season[season.to_sym].max_by do |_id, stats|
+      stats[:tackles]
+    end[0]
+    @teams.find do |team|
+      team.team_id == team_id.to_s
+    end.team_name
+  end
+
+  def fewest_tackles(season)
+    team_id = stats_by_id_and_season[season.to_sym].min_by do |_id, stats|
+      stats[:tackles]
+    end[0]
     @teams.find do |team|
       team.team_id == team_id.to_s
     end.team_name
