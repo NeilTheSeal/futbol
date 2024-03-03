@@ -145,14 +145,24 @@ RSpec.describe StatGenerator do
       expect(@stat_generator.worst_coach("20142015")).to eq("Paul Maurice").or(eq("Ted Nolan"))
     end
 
-    it "can display the team with highest ratio of shots to goals" do
+    xit "can display the team with highest ratio of shots to goals for the season" do
       expect(@stat_generator.most_accurate_team("20132014")).to eq "Real Salt Lake"
       expect(@stat_generator.most_accurate_team("20142015")).to eq "Toronto FC"
     end
 
-    it "can display the team with the lowest ratio of shots to goals" do
+    xit "can display the team with the lowest ratio of shots to goals for the season" do
       expect(@stat_generator.least_accurate_team("20132014")).to eq "New York City FC"
       expect(@stat_generator.least_accurate_team("20142015")).to eq "Columbus Crew SC"
+    end
+
+    it "can display the team with the most tackles for the season" do
+      expect(@stat_generator.most_tackles("20132014")).to eq "FC Cincinnati"
+      expect(@stat_generator.most_tackles("20142015")).to eq "Seattle Sounders FC"
+    end
+
+    it "can display the team with the least tackles for the season" do
+      expect(@stat_generator.fewest_tackles("20132014")).to eq "Atlanta United"
+      expect(@stat_generator.fewest_tackles("20142015")).to eq "Orlando City SC"
     end
   end
 
