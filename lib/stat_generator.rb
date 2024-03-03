@@ -78,9 +78,36 @@ class StatGenerator
   def average_goals_per_game 
     (total_goals / @games.count).round(2)
   end
-  
- 
 
+  def total_goals_by_season(season)
+    @games.sum do |game|
+      (game.total_score if game.season == season).to_i
+    end.to_f
+  end
+
+  def average_goals_per_season(season)
+    #total num of goals by that season devided by total number of games that season had
+    (total_goals_by_season(season)) / count_of_games_by_season[season]
+  end
+  
+  #I need to get each game from each season and see the average from each season. 
+  # first i need to go through each game and sort them by season. @games.each do |game|  game.count_of_games_by_season 
+  #then nested??? something like (@games.each do |game| game.average_goals_per_season ) or something like total_goals_per_season / count_of_games_by_season
+  #then i need to see the averge score of each game. 
+  def average_goals_by_season
+    goals_by_season = Hash.new(0)
+    # @games.each do |game|
+    #   season_names.each do |season|
+    #     require 'pry'; binding.pry
+    #     goals_by_season[season] = average_goals_per_season(season) if game.season == season
+    #   end
+    # end
+     season_names.each do |season|
+      goals_by_season[season] = average_goals_per_season(season).round(2)
+    end
+    goals_by_season
+  end
+  
   def seasons
     seasons = []
     @games.each do |game|
