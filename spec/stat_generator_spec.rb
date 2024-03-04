@@ -171,16 +171,6 @@ RSpec.describe StatGenerator do
       expect(@stat_generator.seasons).to eq(new_seasons)
     end
 
-    it "can list game ids by season" do
-      season_id_list = @stat_generator.id_by_season
-
-      expect(season_id_list.keys.empty?).to eq(false)
-
-      season_id_list.each_value do |id_array|
-        expect(id_array.empty?).to eq(false)
-      end
-    end
-
     it "can list game teams by season" do
       season_game_team_list = @stat_generator.game_team_by_season
 
@@ -401,21 +391,25 @@ RSpec.describe StatGenerator do
     end
 
     it "can find the average goals made per game by a team when visitor for all seasons" do
-      team1_average = @stat_generator.average_goals_per_game_by_team("19", "visitor")
+      team1_average = @stat_generator.average_goals_per_game_by_team("19",
+                                                                     "visitor")
 
       expect(team1_average).to eq(1.00)
 
-      team2_average = @stat_generator.average_goals_per_game_by_team("53", "visitor")
+      team2_average = @stat_generator.average_goals_per_game_by_team("53",
+                                                                     "visitor")
 
       expect(team2_average).to eq(3.0)
     end
 
     it "can find the average goals made per game by a team when home for all seasons" do
-      team1_average = @stat_generator.average_goals_per_game_by_team("19", "home")
+      team1_average = @stat_generator.average_goals_per_game_by_team("19",
+                                                                     "home")
 
       expect(team1_average).to eq(2.75)
 
-      team2_average = @stat_generator.average_goals_per_game_by_team("53", "home")
+      team2_average = @stat_generator.average_goals_per_game_by_team("53",
+                                                                     "home")
 
       expect(team2_average).to eq(2.0)
     end

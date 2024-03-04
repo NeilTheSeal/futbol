@@ -235,16 +235,6 @@ class StatGenerator
     hash
   end
 
-  def id_by_season
-    season_id_list = generate_array_hash(seasons)
-    @games.each do |game|
-      unless season_id_list[game.season.to_sym].include?(game.game_id)
-        season_id_list[game.season.to_sym].push(game.game_id)
-      end
-    end
-    season_id_list
-  end
-
   def total_games_played_by_team(team_id, home_or_visitor = "all")
     @game_teams.count do |game_team|
       if home_or_visitor == "visitor"
