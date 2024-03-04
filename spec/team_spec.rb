@@ -2,7 +2,7 @@ require "spec_helper"
 
 RSpec.describe Team do
   before(:all) do
-    @teams = Team.create_teams("./data/teams_fixture.csv")
+    @teams = Team.create_teams("./fixture_data/teams_fixture.csv")
   end
 
   before(:each) do

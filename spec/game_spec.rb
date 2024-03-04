@@ -2,7 +2,7 @@ require "spec_helper"
 
 RSpec.describe Game do
   before(:all) do
-    @games = Game.create_games("./data/games_fixture.csv")
+    @games = Game.create_games("./fixture_data/games_fixture.csv")
   end
 
   before(:each) do
@@ -24,6 +24,10 @@ RSpec.describe Game do
   describe '#total_score' do
     it 'gets the total score of the game' do
       expect(@game1.total_score).to eq(5)
+
+      @game2 = @games[2]
+
+      expect(@game2.total_score).to eq(4)
     end
   end
 end

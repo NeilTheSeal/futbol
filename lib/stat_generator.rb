@@ -15,42 +15,16 @@ class StatGenerator
     @games.min_by(&:total_score).total_score
   end
 
-  def count_of_games
-    @games.count
-  end
-
-  def total_home_wins
-    @games.count do |game|
-      game.home_goals > game.visitor_goals
-    end
-  end
-
   def percentage_home_wins
     (total_home_wins / count_of_games.to_f).round(2)
-  end
-
-  def total_visitor_wins
-    @games.count do |game|
-      game.visitor_goals > game.home_goals
-    end
   end
 
   def percentage_visitor_wins
     (total_visitor_wins / count_of_games.to_f).round(2)
   end
 
-  def total_ties
-    @games.count do |game|
-      game.visitor_goals == game.home_goals
-    end
-  end
-
   def percentage_ties
     (total_ties / count_of_games.to_f).round(2)
-  end
-
-  def seasons
-    @games.map(&:season).uniq
   end
 
   def count_of_games_by_season
@@ -63,22 +37,8 @@ class StatGenerator
     name_by_count
   end
 
-  def total_goals
-    @games.sum(&:total_score).to_f
-  end
-
   def average_goals_per_game
     (total_goals / @games.count).round(2)
-  end
-
-  def total_goals_by_season(season)
-    @games.sum do |game|
-      (game.total_score if game.season == season).to_i
-    end.to_f
-  end
-
-  def average_goals_per_season(season)
-    total_goals_by_season(season) / count_of_games_by_season[season]
   end
 
   def average_goals_by_season
@@ -89,35 +49,52 @@ class StatGenerator
     goals_by_season
   end
 
-  def id_by_season
-    season_id_list = generate_array_hash(seasons)
-    @games.each do |game|
-      unless season_id_list[game.season.to_sym].include?(game.game_id)
-        season_id_list[game.season.to_sym].push(game.game_id)
-      end
-    end
-    season_id_list
+  def count_of_teams
+    @teams.count
   end
 
-  def stats_by_id_and_season
-    stats = {}
-    seasons.each { |season| stats[season.to_sym] = {} }
-    game_team_by_season.each do |season, game_team_array|
-      game_team_array.each do |game_team|
-        if stats[season][game_team.team_id.to_sym].nil?
-          stats[season][game_team.team_id.to_sym] = {
-            shots: game_team.shots,
-            goals: game_team.goals,
-            tackles: game_team.tackles
-          }
-        else
-          stats[season][game_team.team_id.to_sym][:shots] += game_team.shots
-          stats[season][game_team.team_id.to_sym][:goals] += game_team.goals
-          stats[season][game_team.team_id.to_sym][:tackles] += game_team.tackles
-        end
-      end
-    end
-    stats
+  def best_offense
+    @teams.max_by do |team|
+      average_goals_per_game_by_team(team.team_id)
+    end.team_name
+  end
+
+  def worst_offense
+    @teams.min_by do |team|
+      average_goals_per_game_by_team(team.team_id)
+    end.team_name
+  end
+
+  def highest_scoring_visitor
+    @teams.max_by do |team|
+      average_goals_per_game_by_team(team.team_id, "visitor")
+    end.team_name
+  end
+
+  def highest_scoring_home_team
+    @teams.max_by do |team|
+      average_goals_per_game_by_team(team.team_id, "home")
+    end.team_name
+  end
+
+  def lowest_scoring_visitor
+    @teams.min_by do |team|
+      average_goals_per_game_by_team(team.team_id, "visitor")
+    end.team_name
+  end
+
+  def lowest_scoring_home_team
+    @teams.min_by do |team|
+      average_goals_per_game_by_team(team.team_id, "home")
+    end.team_name
+  end
+
+  def winningest_coach(season)
+    coach_evaluation(season, "winner")
+  end
+
+  def worst_coach(season)
+    coach_evaluation(season, "loser")
   end
 
   def most_accurate_team(season)
@@ -162,28 +139,54 @@ class StatGenerator
     end.team_name
   end
 
-  def generate_array_hash(keys)
-    hash = {}
-    keys.each { |key| hash[key.to_sym] = [] }
-    hash
+  def average_goals_per_game_by_team(team_id, home_or_visitor = "all")
+    if home_or_visitor == "visitor"
+      (total_goals_by_team(team_id,
+                           home_or_visitor).to_f / total_games_played_by_team(
+                             team_id, home_or_visitor
+                           )).round(2)
+    elsif home_or_visitor == "home"
+      (total_goals_by_team(team_id,
+                           home_or_visitor).to_f / total_games_played_by_team(
+                             team_id, home_or_visitor
+                           )).round(2)
+    else
+      (total_goals_by_team(team_id).to_f / total_games_played_by_team(team_id)).round(2)
+    end
   end
 
-  def generate_integer_hash(keys)
-    hash = {}
-    keys.each { |key| hash[key.to_sym] = 0 }
-    hash
-  end
-
-  def game_team_by_season
-    season_game_list = generate_array_hash(seasons)
-    @game_teams.each do |game_team|
-      @games.each do |game|
-        next unless game_team.game_id == game.game_id
-
-        season_game_list[game.season.to_sym].push(game_team)
+  def stats_by_id_and_season
+    stats = {}
+    seasons.each { |season| stats[season.to_sym] = {} }
+    game_team_by_season.each do |season, game_team_array|
+      game_team_array.each do |game_team|
+        if stats[season][game_team.team_id.to_sym].nil?
+          stats[season][game_team.team_id.to_sym] = {
+            shots: game_team.shots,
+            goals: game_team.goals,
+            tackles: game_team.tackles
+          }
+        else
+          stats[season][game_team.team_id.to_sym][:shots] += game_team.shots
+          stats[season][game_team.team_id.to_sym][:goals] += game_team.goals
+          stats[season][game_team.team_id.to_sym][:tackles] += game_team.tackles
+        end
       end
     end
-    season_game_list
+    stats
+  end
+
+  def coach_evaluation(season, winner_or_loser)
+    game_teams_list = game_team_by_season[season.to_sym]
+    wins_by_coach = generate_integer_hash(coaches_by_season[season.to_sym])
+    game_teams_list.each do |game_team|
+      wins_by_coach[game_team.coach.to_sym] += 1 if game_team.result == "WIN"
+    end
+    if winner_or_loser == "winner"
+      wins_by_coach.max_by { |_coach, wins| wins }[0].to_s
+    else
+      wins_by_coach.min_by { |_coach, wins| wins }[0].to_s
+    end
   end
 
   def coaches
@@ -208,29 +211,38 @@ class StatGenerator
     coach_list
   end
 
-  def coach_evaluation(season, winner_or_loser)
-    game_teams_list = game_team_by_season[season.to_sym]
-    wins_by_coach = generate_integer_hash(coaches_by_season[season.to_sym])
-    game_teams_list.each do |game_team|
-      wins_by_coach[game_team.coach.to_sym] += 1 if game_team.result == "WIN"
+  def game_team_by_season
+    season_game_list = generate_array_hash(seasons)
+    @game_teams.each do |game_team|
+      @games.each do |game|
+        next unless game_team.game_id == game.game_id
+
+        season_game_list[game.season.to_sym].push(game_team)
+      end
     end
-    if winner_or_loser == "winner"
-      wins_by_coach.max_by { |_coach, wins| wins }[0].to_s
-    else
-      wins_by_coach.min_by { |_coach, wins| wins }[0].to_s
+    season_game_list
+  end
+
+  def generate_array_hash(keys)
+    hash = {}
+    keys.each { |key| hash[key.to_sym] = [] }
+    hash
+  end
+
+  def generate_integer_hash(keys)
+    hash = {}
+    keys.each { |key| hash[key.to_sym] = 0 }
+    hash
+  end
+
+  def id_by_season
+    season_id_list = generate_array_hash(seasons)
+    @games.each do |game|
+      unless season_id_list[game.season.to_sym].include?(game.game_id)
+        season_id_list[game.season.to_sym].push(game.game_id)
+      end
     end
-  end
-
-  def winningest_coach(season)
-    coach_evaluation(season, "winner")
-  end
-
-  def worst_coach(season)
-    coach_evaluation(season, "loser")
-  end
-
-  def count_of_teams
-    @teams.count
+    season_id_list
   end
 
   def total_games_played_by_team(team_id, home_or_visitor = "all")
@@ -261,55 +273,43 @@ class StatGenerator
     end
   end
 
-  def average_goals_per_game_by_team(team_id, home_or_visitor = "all")
-    if home_or_visitor == "visitor"
-      (total_goals_by_team(team_id,
-                           home_or_visitor).to_f / total_games_played_by_team(
-                             team_id, home_or_visitor
-                           )).round(2)
-    elsif home_or_visitor == "home"
-      (total_goals_by_team(team_id,
-                           home_or_visitor).to_f / total_games_played_by_team(
-                             team_id, home_or_visitor
-                           )).round(2)
-    else
-      (total_goals_by_team(team_id).to_f / total_games_played_by_team(team_id)).round(2)
+  def average_goals_per_season(season)
+    total_goals_by_season(season) / count_of_games_by_season[season]
+  end
+
+  def count_of_games
+    @games.count
+  end
+
+  def seasons
+    @games.map(&:season).uniq
+  end
+
+  def total_home_wins
+    @games.count do |game|
+      game.home_goals > game.visitor_goals
     end
   end
 
-  def best_offense
-    @teams.max_by do |team|
-      average_goals_per_game_by_team(team.team_id)
-    end.team_name
+  def total_visitor_wins
+    @games.count do |game|
+      game.visitor_goals > game.home_goals
+    end
   end
 
-  def highest_scoring_visitor
-    @teams.max_by do |team|
-      average_goals_per_game_by_team(team.team_id, "visitor")
-    end.team_name
+  def total_ties
+    @games.count do |game|
+      game.visitor_goals == game.home_goals
+    end
   end
 
-  def highest_scoring_home_team
-    @teams.max_by do |team|
-      average_goals_per_game_by_team(team.team_id, "home")
-    end.team_name
+  def total_goals
+    @games.sum(&:total_score).to_f
   end
 
-  def worst_offense
-    @teams.min_by do |team|
-      average_goals_per_game_by_team(team.team_id)
-    end.team_name
-  end
-
-  def lowest_scoring_visitor
-    @teams.min_by do |team|
-      average_goals_per_game_by_team(team.team_id, "visitor")
-    end.team_name
-  end
-
-  def lowest_scoring_home_team
-    @teams.min_by do |team|
-      average_goals_per_game_by_team(team.team_id, "home")
-    end.team_name
+  def total_goals_by_season(season)
+    @games.sum do |game|
+      (game.total_score if game.season == season).to_i
+    end.to_f
   end
 end
