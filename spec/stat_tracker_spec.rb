@@ -3,9 +3,9 @@ require "spec_helper"
 # rubocop:disable Metrics/BlockLength
 RSpec.describe StatTracker do
   before(:all) do
-    game_path = "./data/games_fixture.csv"
-    team_path = "./data/teams_fixture.csv"
-    game_teams_path = "./data/game_teams_fixture.csv"
+    game_path = "./fixture_data/games_fixture.csv"
+    team_path = "./fixture_data/teams_fixture.csv"
+    game_teams_path = "./fixture_data/game_teams_fixture.csv"
 
     locations = {
       games: game_path,

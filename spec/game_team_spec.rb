@@ -3,7 +3,7 @@ require "spec_helper"
 # rubocop:disable Metrics/BlockLength
 RSpec.describe GameTeam do
   before(:all) do
-    @game_teams = GameTeam.create_game_teams("./data/game_teams_fixture.csv")
+    @game_teams = GameTeam.create_game_teams("./fixture_data/game_teams_fixture.csv")
   end
 
   before(:each) do

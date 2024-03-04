@@ -3,9 +3,9 @@ require "spec_helper"
 # rubocop:disable Metrics/BlockLength
 RSpec.describe StatGenerator do
   before(:all) do
-    @games = Game.create_games("./data/games_fixture.csv")
-    @game_teams = GameTeam.create_game_teams("./data/game_teams_fixture.csv")
-    @teams = Team.create_teams("./data/teams_fixture.csv")
+    @games = Game.create_games("./fixture_data/games_fixture.csv")
+    @game_teams = GameTeam.create_game_teams("./fixture_data/game_teams_fixture.csv")
+    @teams = Team.create_teams("./fixture_data/teams_fixture.csv")
   end
 
   before(:each) do
