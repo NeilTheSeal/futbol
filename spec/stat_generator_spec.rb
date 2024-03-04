@@ -20,6 +20,7 @@ RSpec.describe StatGenerator do
     it "has attributes" do
       expect(@stat_generator.games).to eq(@games)
       expect(@stat_generator.teams).to eq(@teams)
+      expect(@stat_generator.game_teams).to eq(@game_teams)
     end
   end
 
