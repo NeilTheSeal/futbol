@@ -60,3 +60,36 @@
 - Ask for help when you need it
 - More driver/navigator and group work
 - Asking more technical questions
+
+## Reflection
+
+- What was the most challenging aspect of this project?
+  - Staying motivated to finish up the project.
+  - Not giving up when things got challenging
+
+
+- What was the most exciting aspect of this project?
+  - Working with new people is always a good way to learn collaboration skills.
+  - It was cool to integrate all of the technical skills we have learned so far into a single project.
+  - Seeing the project come together at the end was very satisfying.
+
+
+- Describe the best choice enumerables you used in your project. Please include file names and line numbers.
+  - The .map method reduced our `stat_generator.seasons` method to a single line (stat_generator.rb:275)
+  - We used the `each` method many times (stat_generator.rb:103)
+  - We used the `count` method (stat_generator.rb:41)
+  - We also used the `sum` method (stat_generator.rb:251)
+
+
+- Tell us about a module or superclass which helped you re-use code across repository classes. Why did you choose to use a superclass and/or a module?
+  - We did not use superclasses or modules. We chose not to use them because it was not necessary.
+
+
+- Tell us about 1) a unit test and 2) an integration test that you are particularly proud of. Please include file name(s) and line number(s).
+  - `"can generate a hash of team stats by season"` - stat_generator_spec.rb:238. I was proud of this because it is a robust way of determining whether a hash has the expected format.
+  - `"can display the winningest coach"` - stat_generator_spec.rb:274. This was an integration test I was proud of because it integrates several helper methods.
+
+
+- Is there anything else you would like instructors to know?
+  - We would like some input about methods we could have shortened or made more efficient. Also, with nested iterations we were wondering if there was a faster way (stat_generator.rb:214)
+  - We were wondering if there was a different way we could lay out our classes and methods to adhere more to SRP and be better organized.
